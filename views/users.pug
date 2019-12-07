@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .w3-container
+    h1 GRUPO 6 ENTREPRISE MANAGER
+    table
+      tr
+        th Nome
+        th Last Login
+        th Account Status
+      each u in users.rows        
+          tr
+            td= u[0]
+            td= u[1]
+            td= u[2]

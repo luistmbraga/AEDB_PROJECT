@@ -3,28 +3,44 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 
-const oracledb = require('oracledb');
-
-
-
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/apiDados');
+
+/*
 var con = require(__dirname + '/config/connection.js');
 
-
-async function getUsers() {
+ async function getUsers() {
   var db = con.getConnection()
-  
-var result = await db.execute('Select * from dba_users')
-                .then()
-                .catch(erro => console.log(erro));
+
+  var result = await db.execute('Select * from dba_users')
+                    .then()
+                    .catch(erro => console.log(erro));
 
 console.log(result);
 
 }
 
-getUsers();
+getUsers();*/
 
+
+/*
+oracledb.getConnection(
+  {
+    user          : "system",
+    password      : "oracle",
+    connectString : "//localhost/orcl"
+  },
+  function(err, connection)
+  {
+    if (err) { console.error(err); return; }
+    connection.execute(
+      "Select * from dba_users",
+      function(err, result)
+      {
+        if (err) { console.error(err); return; }
+        console.log(result.rows);
+      });
+  });*/
 
 var app = express();
 

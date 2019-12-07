@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .w3-container
+    h1 GRUPO 6 ENTREPRISE MANAGER
+    table
+      tr
+        th Grantee
+        th Privilege
+      each p in privs.rows        
+          tr
+            td= p[0]
+            td= p[1]
