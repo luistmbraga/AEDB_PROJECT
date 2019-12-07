@@ -30,14 +30,6 @@ router.get('/privs', function(req, res, next) {
   .catch(erro => {res.status(500).jsonp(erro)})
 });
 
-router.get('/privs', function(req, res, next) {
-  oracledb.getConnection(con)
-  .then(dados => {
-    dados.execute("Select GRANTEE, PRIVILEGE from dba_sys_privs")
-      .then(dados => {res.render('privs', {privs: dados}); console.log(dados)})
-      .catch(erro => {res.status(500).jsonp(erro)})
-  })
-  .catch(erro => {res.status(500).jsonp(erro)})
-});
+
 
 module.exports = router;
