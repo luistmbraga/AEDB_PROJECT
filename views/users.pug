@@ -2,14 +2,34 @@ extends layout
 
 block content
   .w3-container
-    h1 GRUPO 6 ENTERPRISE MANAGER
-    table
-      tr
-        th Nome
-        th Last Login
-        th Account Status
-      each u in users.rows        
-          tr
-            td= u[0]
-            td= u[1]
-            td= u[2]
+        .w3-card-4
+            header.w3-container.w3-teal
+                h1.w3-center Users
+                center
+                    img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
+            .w3-container
+              table.w3-table-all
+                tr.w3-amber
+                  th Name
+                  th Last Login
+                  th Account Status
+                  th Privileges
+                  th Roles
+                each u in users.rows        
+                  tr
+                    td= u[0]
+                    if (u[1]) 
+                      td= u[1]
+                    else 
+                      td= "Não existe"
+                    td= u[2]
+                    td
+                      form(action= '/privs')
+                        input(type="hidden" name="user" value=u[0])
+                        button(class="fas fa-eye" style="background-color: #FFBF00; color: black; padding: 22px 22px; border-radius: 12px;").w3-hover-teal
+                    td
+                      form(action= '/roles')
+                        input(type="hidden" name="user" value=u[0])
+                        button(class="fas fa-eye" style="background-color: #FFBF00; color: black; padding: 22px 22px; border-radius: 12px;").w3-hover-teal
+              footer.w3-container.w3-teal
+                adress Gerado por Grupo 6

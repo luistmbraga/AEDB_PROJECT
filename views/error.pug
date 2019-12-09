@@ -1,6 +1,14 @@
 extends layout
-
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    .w3-container
+        .w3-card-4
+            header.w3-container.w3-red
+                center
+                    h3 Erro!
+            .w3-container
+                center
+                    img(src='https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_960_720.png' style='width:110px; height:110px;')
+                center
+                    p= error
+            footer.w3-container.w3-red
+                adress Gerado por Grupo 6
