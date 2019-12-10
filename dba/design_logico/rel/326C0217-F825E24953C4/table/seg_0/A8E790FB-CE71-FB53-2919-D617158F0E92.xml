@@ -1,0 +1,82 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A8E790FB-CE71-FB53-2919-D617158F0E92" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="BASEDADOS">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>BASEDADOS</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:06 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="NAME" id="5D96790B-7540-130D-F0B5-8EC0058C5F7C">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>NAME</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>200 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PLATFORM" id="8F2B5F1D-6935-0AEC-1EF6-874383A24CE3">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>PLATFORM</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMESTAMP" id="EDBDFBE3-CAC6-58E8-8C25-543954608107">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AC097030-7E6A-DD63-7EBB-54036511E49B" name="ID_BD">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>ID_BD</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5D96790B-7540-130D-F0B5-8EC0058C5F7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6BEFF097-5B95-D6A3-2231-9242036A3A77" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="ID_BD">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>ID_BD</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,142 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="015AFE8B-109C-D52C-D64C-B5463F3602DE" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="DATAFILES">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DATAFILES</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:07 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_DF" id="58B9CCD9-504C-3572-9589-0580D73BF36A">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>ID_DF</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NAME" id="C23A5AE6-754D-8D88-92DE-2245606C11EF">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>NAME</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOTAL_SIZE" id="1B74B717-B444-8825-5874-F0FD61083DCF">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>TOTAL_SIZE</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,30,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FREE_SIZE" id="D60E8D3E-5E0C-FC88-8B2F-A20F421372AF">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>FREE_SIZE</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,30,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMESTAMP" id="272618FF-28FE-7234-6287-257A664A1F06">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NAME_TS" id="1BFDF404-FFB3-D92B-430C-EDE537BD698B">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>DATAFILES</sourceObjSchema>
+<sourceObjName>NAME_TS</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FCAD011C-D822-F68B-26BD-C954906CC59F" referredColumn="D33173D5-D69F-BA0F-553B-FE653DD26856"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B09881B1-B543-77B7-197E-61B0E3C314B4" name="DATAFILES_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DATAFILES_PK</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="58B9CCD9-504C-3572-9589-0580D73BF36A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F3822F76-271B-2984-8EEB-285F7076799A" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="DATAFILES_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DATAFILES_PK</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="58B9CCD9-504C-3572-9589-0580D73BF36A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="46C353AD-257D-696B-68FD-26BBBFEAF380" name="DATAFILES_FK1">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1BFDF404-FFB3-D92B-430C-EDE537BD698B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

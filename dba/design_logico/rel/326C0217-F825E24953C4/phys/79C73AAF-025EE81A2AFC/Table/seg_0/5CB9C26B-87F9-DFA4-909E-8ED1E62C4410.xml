@@ -1,0 +1,67 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="SESSIONS" directorySegmentName="seg_0" id="5CB9C26B-87F9-DFA4-909E-8ED1E62C4410">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:07 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<schemaObject>3266314C-342B-2452-0DC3-F3E0DC7235D5</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>8F9F4680-39AF-2943-DC87-C330BE38DBDB</segment>
+<tableSpace>DB15F9FD-4A37-5E37-B160-CCB02F2E59B7</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="TIMESTAMP" id="4E903E0D-612E-7B34-3731-6E3055C5823D">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USERS_USERNAME" id="93C7DE16-A5D8-F71E-AE23-0F199EBC7EBC">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 18:03:51 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PROGRAM" id="D9559B92-1CE1-695E-1C77-8AB4903F6ED1">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_SES" id="DE7345BC-92B5-CF21-7780-C245126AC4F4">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="SESSIONS_PK" id="B165821E-E5C2-36A0-CB97-AB80D5E5377B">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<schemaObject>3266314C-342B-2452-0DC3-F3E0DC7235D5</schemaObject>
+<segment>362DBC61-20C1-44C5-26EC-C41B367E9C12</segment>
+<tableSpace>DB15F9FD-4A37-5E37-B160-CCB02F2E59B7</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="SESSIONS_FK1" id="EB90B6A4-70EB-CE09-4996-165374DB1695">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="SESSIONS_PK" id="86CB2EDE-1F84-D0B1-8FA1-82701D08C7F1">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<segment>362DBC61-20C1-44C5-26EC-C41B367E9C12</segment>
+<tableSpace>DB15F9FD-4A37-5E37-B160-CCB02F2E59B7</tableSpace>
+<existingIndex>B165821E-E5C2-36A0-CB97-AB80D5E5377B</existingIndex>
+<indexSegment>362DBC61-20C1-44C5-26EC-C41B367E9C12</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

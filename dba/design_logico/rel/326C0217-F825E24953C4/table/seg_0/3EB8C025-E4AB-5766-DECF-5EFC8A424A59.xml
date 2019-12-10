@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3EB8C025-E4AB-5766-DECF-5EFC8A424A59" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="USERS_PRIVILEGESUSERS">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:07 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PRIV_NAME" id="984B3144-EE0E-3F6A-C05A-7BAEDF7498C1">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 18:01:00 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A7B168D0-9674-781B-215F-94BF030F7DFB" referredColumn="6640C724-0FE3-658E-47DD-68CB069C964E"/>
+</associations>
+</Column>
+<Column name="USERS_USERNAME" id="959214D2-5B5A-7780-9C38-ED9817959A53">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 18:03:51 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>70 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5984A8E9-EA17-6DE1-2942-94BB32C99E86" referredColumn="AC02A9B1-94CA-762F-313E-24253C4B3478"/>
+</associations>
+</Column>
+<Column name="TIMESTAMP" id="D536A9BB-0D96-8566-5D9C-308511A430F8">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>USERS_PRIVILEGESUSERS</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1B1E7699-A9A1-A442-08A1-E8D1183DA3B7" name="USERS_PRIVILEGESUSERS_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS_PK</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="984B3144-EE0E-3F6A-C05A-7BAEDF7498C1"/>
+<colUsage columnID="959214D2-5B5A-7780-9C38-ED9817959A53"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0F898F7A-14C4-E247-50C2-2A25C5B086E6" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="USERS_PRIVILEGESUSERS_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS_PK</sourceObjName>
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+</ind_PK_UK>
+<ind_PK_UK id="E0976340-F9C8-B33A-B54D-8FDB1288B776" name="USERS_PRIVILEGESUSERS_FK1">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="959214D2-5B5A-7780-9C38-ED9817959A53"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C4B420F7-1814-11EB-1F20-CB29B9BF695D" name="USERS_PRIVILEGESUSERS_FK2">
+<createdBy>joaon</createdBy>
+<createdTime>2019-12-10 17:37:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="984B3144-EE0E-3F6A-C05A-7BAEDF7498C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
