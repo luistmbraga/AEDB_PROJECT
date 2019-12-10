@@ -10,14 +10,46 @@ SELECT DBID, NAME, PLATAFORM_NAME  FROM V$DATABASE;
 
 -- users (faltam as horas no sysdate)
 Select user_id, username, last_login, account_status, sysdate From dba_users;
+select * from dba_users where username='SYS';
 
 -- privileges
 Select GRANTEE, PRIVILEGE, sysdate from dba_sys_privs;
+SELECT GRANTEE, OWNER, GRANTOR, PRIVILEGE, GRANTABLE
+FROM DBA_TAB_PRIVS
+ORDER BY OWNER ASC;
+
 
 --roles
-select role, role_id from dba_roles;
+select
+   *
+from
+   dba_role_privs;
 
 -- tablespaces
+select * from dba_tablespaces;
+
+SELECT 
+   ts.tablespace_name, "File Count",
+   TRUNC("SIZE(MB)", 2) "Size",
+   TRUNC(fr."FREE(MB)", 2) "Free",
+   TRUNC("SIZE(MB)" - "FREE(MB)", 2) "Used(MB)",
+   df."MAX_EXT" "Max Ext(MB)",
+   (fr."FREE(MB)" / df."SIZE(MB)") * 100 "% Free"
+FROM 
+   (SELECT tablespace_name,
+   SUM (bytes) / (1024 * 1024) "FREE(MB)"
+   FROM dba_free_space
+    GROUP BY tablespace_name) fr,
+(SELECT tablespace_name, SUM(bytes) / (1024 * 1024) "SIZE(MB)", COUNT(*)
+"File Count", SUM(maxbytes) / (1024 * 1024) "MAX_EXT"
+FROM dba_data_files
+GROUP BY tablespace_name) df,
+(SELECT tablespace_name
+FROM dba_tablespaces) ts
+WHERE fr.tablespace_name = df.tablespace_name (+)
+AND fr.tablespace_name = ts.tablespace_name (+)
+ORDER BY "% Free" desc;
+
 select df.tablespace_name, sum(df.maxblocks) as max_size, sysdate
     from dba_tablespaces ts, dba_data_files df
     where ts.tablespace_name = ts.tablespace_name
