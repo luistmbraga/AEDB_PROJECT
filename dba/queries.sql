@@ -6,7 +6,7 @@ Select GRANTEE, PRIVILEGE from dba_sys_privs;
 -------------- Para insert/update ----------------------
 
 -- database (tem que se ver melhor)
-SELECT DBID, NAME, PLATAFORM_NAME  FROM V$DATABASE;
+SELECT DBID, NAME, PLATFORM_NAME  FROM V$DATABASE;
 
 -- users (faltam as horas no sysdate)
 Select user_id, username, last_login, account_status, sysdate From dba_users;
@@ -14,6 +14,7 @@ select * from dba_users where username='SYS';
 
 -- privileges
 Select GRANTEE, PRIVILEGE, sysdate from dba_sys_privs;
+
 SELECT GRANTEE, OWNER, GRANTOR, PRIVILEGE, GRANTABLE
 FROM DBA_TAB_PRIVS
 ORDER BY OWNER ASC;
@@ -29,12 +30,9 @@ from
 select * from dba_tablespaces;
 
 SELECT 
-   ts.tablespace_name, "File Count",
+   ts.tablespace_name,
    TRUNC("SIZE(MB)", 2) "Size",
-   TRUNC(fr."FREE(MB)", 2) "Free",
-   TRUNC("SIZE(MB)" - "FREE(MB)", 2) "Used(MB)",
-   df."MAX_EXT" "Max Ext(MB)",
-   (fr."FREE(MB)" / df."SIZE(MB)") * 100 "% Free"
+   TRUNC(fr."FREE(MB)", 2) "Free"
 FROM 
    (SELECT tablespace_name,
    SUM (bytes) / (1024 * 1024) "FREE(MB)"
@@ -47,9 +45,9 @@ GROUP BY tablespace_name) df,
 (SELECT tablespace_name
 FROM dba_tablespaces) ts
 WHERE fr.tablespace_name = df.tablespace_name (+)
-AND fr.tablespace_name = ts.tablespace_name (+)
-ORDER BY "% Free" desc;
+AND fr.tablespace_name = ts.tablespace_name (+);
 
+SELECT * FROM dba_tablespaces;
 select df.tablespace_name, sum(df.maxblocks) as max_size, sysdate
     from dba_tablespaces ts, dba_data_files df
     where ts.tablespace_name = ts.tablespace_name
@@ -62,7 +60,7 @@ select count(*) as no_of_data_files from dba_data_files group by tablespace_name
 SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_DATA_FILES 
         UNION 
             SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_TEMP_FILES;
-
+SELECT * FROM DBA_DATA_FILES;
 -- cpu
 
 -- memoria
@@ -70,7 +68,7 @@ SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_DATA_FILES
 
 -----------------------------------------------
 
-select * from dba_roles where Role_id > 2147483600;
+select * from dba_roles; 
 
 select * from dba_role_privs;
 
@@ -103,9 +101,20 @@ select tablespace_name
        , sum(maxblocks) as max_size
 from dba_data_files
 group by tablespace_name;
--- Nº de sessões
 
+-- Nº de sessões
 select count(*) as num_sessions from v_$session where type='USER';
 
 select * from V$DATAFILE;
 
+SELECT USERNAME, SUM(CPU_USAGE) AS CPU_USAGE FROM
+(
+SELECT se.username, ROUND (value/100) AS CPU_USAGE
+FROM v$session se, v$sesstat ss, v$statname st
+WHERE ss.statistic# = st.statistic#
+   AND name LIKE  '%CPU used by this session%'
+   AND se.sid = ss.SID
+   AND se.username IS NOT NULL
+  ORDER BY value DESC
+)
+GROUP BY USERNAME;

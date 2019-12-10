@@ -1,0 +1,19 @@
+extends layout
+block content
+  .w3-container
+        .w3-card-4
+            header.w3-container.w3-teal
+                h1.w3-center DataBases 
+                center
+                    img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
+            .w3-container
+              table.w3-table-all.w3-centered
+                tr
+                  th Id
+                  th Name
+                  th Plataform 
+                each db in databases.rows        
+                    tr
+                      td= db[0]
+                      td= db[1]
+                      td= db[2]
