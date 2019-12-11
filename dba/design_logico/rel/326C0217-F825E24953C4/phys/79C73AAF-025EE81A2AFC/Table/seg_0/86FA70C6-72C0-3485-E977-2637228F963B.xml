@@ -18,11 +18,6 @@
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="BASEDADOS_NAME" id="AE879E03-A26F-11F6-03A2-72E3E671CB43">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 18:10:10 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-</ColumnProxy>
 <ColumnProxy name="NAME_TS" id="D33173D5-D69F-BA0F-553B-FE653DD26856">
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
@@ -49,13 +44,6 @@
 <tableSpace>DB15F9FD-4A37-5E37-B160-CCB02F2E59B7</tableSpace>
 </IndexProxy>
 </indexProxies>
-<foreignKeys>
-<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="TABLESPACES_FK1" id="FCCD4FB4-9F58-5FC3-3807-5984665A9B03">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:09 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-</ForeignKey>
-</foreignKeys>
 <primaryKeys>
 <PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="TABLESPACES_PK" id="4AC165AA-415C-331F-9B16-14E56EEDECCC">
 <createdBy>joaon</createdBy>

@@ -21,8 +21,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>30</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
-<ownDataTypeParameters>,30,0</ownDataTypeParameters>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="USAGE" id="0E8E9B6D-D4BC-93F7-D087-E66D65F9A540">
@@ -67,21 +66,6 @@
 <logicalDatatype>LOGDT007</logicalDatatype>
 <dataTypeSize>7</dataTypeSize>
 <ownDataTypeParameters>7,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="ID_BD" id="21233B12-E49A-DD46-484F-72015D400C22">
-<sourceConnName>HR.ORCL12</sourceConnName>
-<sourceObjSchema>CPU</sourceObjSchema>
-<sourceObjName>ID_BD</sourceObjName>
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:08 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>20</dataTypePrecision>
-<dataTypeScale>0</dataTypeScale>
-<ownDataTypeParameters>,20,0</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

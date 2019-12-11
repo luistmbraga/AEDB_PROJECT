@@ -18,19 +18,9 @@
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="ID_BD" id="5CBA7216-4177-C634-B851-2BE6CA48CB2C">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:08 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-</ColumnProxy>
 <ColumnProxy name="TIMESTAMP" id="74FFBDFC-2203-1C66-94EC-CCFC4FB35D9C">
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-</ColumnProxy>
-<ColumnProxy name="BASEDADOS_NAME" id="7C2C84C5-052D-E06D-1B75-F5D2A07407C5">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 18:10:10 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="USERNAME" id="AC02A9B1-94CA-762F-313E-24253C4B3478">
@@ -61,11 +51,6 @@
 </indexProxies>
 <foreignKeys>
 <ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="USERS_FK2" id="41EDF2FF-1F5F-054D-2DB1-BDCB5D608BDC">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:09 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-</ForeignKey>
-<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="USERS_FK1" id="FE8939D0-2398-897F-B4E2-08888CE5D86C">
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:09 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>

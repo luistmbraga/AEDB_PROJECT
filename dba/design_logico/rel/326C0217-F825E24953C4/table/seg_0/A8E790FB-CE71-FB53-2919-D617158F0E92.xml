@@ -48,8 +48,17 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT007</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
-<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_BD" id="EA122A2F-BF79-BD13-4639-C3763E669808">
+<createdBy>luisb</createdBy>
+<createdTime>2019-12-11 12:28:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
@@ -65,7 +74,7 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="5D96790B-7540-130D-F0B5-8EC0058C5F7C"/>
+<colUsage columnID="EA122A2F-BF79-BD13-4639-C3763E669808"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="6BEFF097-5B95-D6A3-2231-9242036A3A77" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="ID_BD">
@@ -77,6 +86,9 @@
 <ownerDesignName>design_logico</ownerDesignName>
 <indexState>Unique Plain Index</indexState>
 <isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EA122A2F-BF79-BD13-4639-C3763E669808"/>
+</indexColumnUsage>
 </ind_PK_UK>
 </indexes>
 </Table>

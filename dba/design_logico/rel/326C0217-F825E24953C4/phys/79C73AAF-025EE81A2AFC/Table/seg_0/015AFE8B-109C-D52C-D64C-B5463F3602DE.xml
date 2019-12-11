@@ -28,9 +28,9 @@
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="ID_DF" id="58B9CCD9-504C-3572-9589-0580D73BF36A">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:08 UTC</createdTime>
+<ColumnProxy name="FILE_ID" id="9FA27875-2C8C-97E6-2850-E60F2489C1C8">
+<createdBy>luisb</createdBy>
+<createdTime>2019-12-11 12:48:34 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="NAME" id="C23A5AE6-754D-8D88-92DE-2245606C11EF">

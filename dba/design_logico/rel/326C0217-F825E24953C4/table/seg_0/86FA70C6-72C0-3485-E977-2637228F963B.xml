@@ -68,21 +68,6 @@
 <ownDataTypeParameters>7,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="BASEDADOS_NAME" id="AE879E03-A26F-11F6-03A2-72E3E671CB43">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 18:10:10 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 BYTE</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="9D944A0C-3A92-4DC3-32A6-3A00B2C28F21" referredColumn="5D96790B-7540-130D-F0B5-8EC0058C5F7C"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="4AC165AA-415C-331F-9B16-14E56EEDECCC" name="TABLESPACES_PK">
@@ -110,16 +95,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="D33173D5-D69F-BA0F-553B-FE653DD26856"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="FCCD4FB4-9F58-5FC3-3807-5984665A9B03" name="TABLESPACES_FK1">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:09 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="AE879E03-A26F-11F6-03A2-72E3E671CB43"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

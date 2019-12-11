@@ -67,19 +67,6 @@
 <ownDataTypeParameters>7,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ID_BD" id="5CBA7216-4177-C634-B851-2BE6CA48CB2C">
-<sourceConnName>HR.ORCL12</sourceConnName>
-<sourceObjSchema>USERS</sourceObjSchema>
-<sourceObjName>ID_BD</sourceObjName>
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:08 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="NAME_TS" id="BBAFFF88-B639-D55B-C67D-87F5BA72297B">
 <sourceConnName>HR.ORCL12</sourceConnName>
 <sourceObjSchema>USERS</sourceObjSchema>
@@ -95,21 +82,6 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="336CA5F3-4E3C-86D3-2E00-9B1B2BF31EA2" referredColumn="D33173D5-D69F-BA0F-553B-FE653DD26856"/>
-</associations>
-</Column>
-<Column name="BASEDADOS_NAME" id="7C2C84C5-052D-E06D-1B75-F5D2A07407C5">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 18:10:10 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 BYTE</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="0AA22C39-7243-BFBB-53AE-4DAA849D747B" referredColumn="5D96790B-7540-130D-F0B5-8EC0058C5F7C"/>
 </associations>
 </Column>
 </columns>
@@ -137,15 +109,8 @@
 <ownerDesignName>design_logico</ownerDesignName>
 <indexState>Unique Plain Index</indexState>
 <isSurrogateKey>false</isSurrogateKey>
-</ind_PK_UK>
-<ind_PK_UK id="FE8939D0-2398-897F-B4E2-08888CE5D86C" name="USERS_FK1">
-<createdBy>joaon</createdBy>
-<createdTime>2019-12-10 17:37:09 UTC</createdTime>
-<ownerDesignName>design_logico</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="7C2C84C5-052D-E06D-1B75-F5D2A07407C5"/>
+<colUsage columnID="AC02A9B1-94CA-762F-313E-24253C4B3478"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="41EDF2FF-1F5F-054D-2DB1-BDCB5D608BDC" name="USERS_FK2">

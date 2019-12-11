@@ -23,6 +23,11 @@
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
 </ColumnProxy>
+<ColumnProxy name="ID_BD" id="EA122A2F-BF79-BD13-4639-C3763E669808">
+<createdBy>luisb</createdBy>
+<createdTime>2019-12-11 12:28:09 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+</ColumnProxy>
 <ColumnProxy name="TIMESTAMP" id="EDBDFBE3-CAC6-58E8-8C25-543954608107">
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:08 UTC</createdTime>
