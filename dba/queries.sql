@@ -90,9 +90,8 @@ SELECT Substr(df.file_name,1,20) NAME_DF,
 
 --Sessoes
 
-select SID, USER# USER_ID, USERNAME, SERIAL# SERIAL,
-c.CURRENT_TIMESTAMP TIMESTAMP
- from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c
+select SID, PROGRAM, USERNAME, SERIAL# SERIAL, c.CURRENT_TIMESTAMP TIMESTAMP
+from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c
 WHERE USERNAME IS NOT NULL
  order by 1 ;
 -----------------------------------------------
