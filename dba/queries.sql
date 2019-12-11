@@ -13,12 +13,15 @@ Select user_id, username, last_login, account_status, sysdate From dba_users;
 select * from dba_users where username='SYS';
 
 -- privileges
+
+-- user privs
 Select GRANTEE, PRIVILEGE, sysdate from dba_sys_privs;
 
 SELECT GRANTEE, OWNER, GRANTOR, PRIVILEGE, GRANTABLE
 FROM DBA_TAB_PRIVS
 ORDER BY OWNER ASC;
 
+select GRANTEE, PRIVILEGE from dba_sys_privs;
 
 --roles
 select
@@ -98,9 +101,11 @@ WHERE USERNAME IS NOT NULL
 
 select * from dba_roles; 
 
+select distinct ROLE from dba_roles;
+
 select * from dba_role_privs;
 
-
+select distinct PRIVILEGE from dba_sys_privs;
 
 select username, machine, to_char(logon_time,'HH:MM:SS')from v$session;
 
