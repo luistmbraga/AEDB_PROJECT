@@ -59,8 +59,31 @@ select count(*) as no_of_data_files from dba_data_files group by tablespace_name
 --datafiles (se calhar deviamos disitinguir as temporárias das normais)
 SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_DATA_FILES 
         UNION 
-            SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_TEMP_FILES;
+SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_TEMP_FILES;
+            
 SELECT * FROM DBA_DATA_FILES;
+
+SELECT Substr(df.file_name,1,20) NAME_DF,
+ Substr(df.tablespace_name,1,40) NAME_TB,
+ Round(df.bytes/1024/1024,0) FILE_SIZE,
+ decode(e.used_bytes,NULL,0,Round(e.used_bytes/1024/1024,0)) USED_SIZE,
+ decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE,
+ c.CURRENT_TIMESTAMP TIMESTAMP,
+ d.CURRENT_TIMESTAMP TIMESTAMP_FK
+ FROM DBA_DATA_FILES DF,
+ (SELECT file_id,
+ Sum(Decode(bytes,NULL,0,bytes)) used_bytes
+ FROM dba_extents 
+ GROUP by file_id) E, 
+ (SELECT Max(bytes) free_bytes, file_id 
+ FROM dba_free_space
+ GROUP BY file_id) f, 
+ (SELECT CURRENT_TIMESTAMP FROM dual) c,
+ (SELECT CURRENT_TIMESTAMP FROM dual) d 
+ WHERE e.file_id (+) = df.file_id 
+ AND df.file_id = f.file_id (+) 
+ ORDER BY df.tablespace_name,df.file_name;
+
 -- cpu
 
 -- memoria
