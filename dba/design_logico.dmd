@@ -5,4 +5,9 @@
 <ownerDesignName>design_logico</ownerDesignName>
 <capitalNames>false</capitalNames>
 <designId>FDC3B72C-BEC8-DB17-572F-213740066A9C</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="FDC3B72C-BEC8-DB17-572F-213740066A9C">
+<designStoragePath>D:\Github\AEDB_PROJECT\dba\design_logico</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
 </OSDM_Design>

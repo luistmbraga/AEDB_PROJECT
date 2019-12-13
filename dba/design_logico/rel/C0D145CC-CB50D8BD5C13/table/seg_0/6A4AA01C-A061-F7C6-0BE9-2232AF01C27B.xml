@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6A4AA01C-A061-F7C6-0BE9-2232AF01C27B" name="BASEDADOS">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>BASEDADOS</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>A8E790FB-CE71-FB53-2919-D617158F0E92</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="NAME" id="D965945E-AADB-4312-858A-E3F3BE4A054C">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>NAME</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>5D96790B-7540-130D-F0B5-8EC0058C5F7C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>200 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PLATFORM" id="802D906E-C34D-6A1F-6038-D24946FAAFDC">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>PLATFORM</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>8F2B5F1D-6935-0AEC-1EF6-874383A24CE3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMESTAMP" id="2D53179E-6934-25C5-8E32-EF7BA010030D">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>BASEDADOS</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>EDBDFBE3-CAC6-58E8-8C25-543954608107</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_BD" id="039DF60B-B02C-0CE2-28DB-4AA356B517EE">
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>EA122A2F-BF79-BD13-4639-C3763E669808</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A30936CF-2EC4-600F-1D6F-C61653B22B1E" name="ID_BD">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>ID_BD</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>AC097030-7E6A-DD63-7EBB-54036511E49B</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="039DF60B-B02C-0CE2-28DB-4AA356B517EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EA253AC2-0A83-1730-8449-1C75DE3C1250" schemaObject="CCB53094-517A-539E-2883-A14EBB6675F9" name="ID_BD">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>ID_BD</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>6BEFF097-5B95-D6A3-2231-9242036A3A77</importedID>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="039DF60B-B02C-0CE2-28DB-4AA356B517EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

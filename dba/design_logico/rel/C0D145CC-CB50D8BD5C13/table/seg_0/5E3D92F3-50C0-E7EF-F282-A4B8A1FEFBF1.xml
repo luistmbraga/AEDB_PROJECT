@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5E3D92F3-50C0-E7EF-F282-A4B8A1FEFBF1" name="USERS_PRIVILEGES">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>3EB8C025-E4AB-5766-DECF-5EFC8A424A59</importedID>
+<ordsAlias>users_privilegesusers</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PRIV_NAME" id="C4AED9E4-17C7-3CAA-134F-6AF6B8B9C1F0">
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>984B3144-EE0E-3F6A-C05A-7BAEDF7498C1</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C48DB06F-CA02-82A4-F941-A55A23716A26" referredColumn="F637E9EC-8AD0-47C4-0F81-3A21A8A941F3"/>
+</associations>
+</Column>
+<Column name="USERS_USERNAME" id="058FC42F-0E61-052C-2B17-D56FA7FDE012">
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>959214D2-5B5A-7780-9C38-ED9817959A53</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>70 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B097667D-5317-4D88-17E3-B87D56A7ECE2" referredColumn="55D4F147-FC77-C962-6E5A-8FF4CC746F44"/>
+</associations>
+</Column>
+<Column name="TIMESTAMP" id="6A91E1D6-7BEF-21A7-B9B9-D71BD7CA068E">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>USERS_PRIVILEGESUSERS</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>D536A9BB-0D96-8566-5D9C-308511A430F8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C327BFFD-C965-0BDA-95CD-5975F1062386" name="USERS_PRIVILEGESUSERS_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS_PK</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>1B1E7699-A9A1-A442-08A1-E8D1183DA3B7</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4AED9E4-17C7-3CAA-134F-6AF6B8B9C1F0"/>
+<colUsage columnID="058FC42F-0E61-052C-2B17-D56FA7FDE012"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B9E9EED2-85B9-29EC-C8A3-52637C26431D" schemaObject="CCB53094-517A-539E-2883-A14EBB6675F9" name="USERS_PRIVILEGESUSERS_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>USERS_PRIVILEGESUSERS_PK</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>0F898F7A-14C4-E247-50C2-2A25C5B086E6</importedID>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4AED9E4-17C7-3CAA-134F-6AF6B8B9C1F0"/>
+<colUsage columnID="058FC42F-0E61-052C-2B17-D56FA7FDE012"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ABF7C6A4-AD8A-773D-5A73-DFE237226686" name="USERS_PRIVILEGESUSERS_FK1">
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="058FC42F-0E61-052C-2B17-D56FA7FDE012"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D245363E-0D1C-7697-3E87-5CBA9A0E7485" name="USERS_PRIVILEGESUSERS_FK2">
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4AED9E4-17C7-3CAA-134F-6AF6B8B9C1F0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

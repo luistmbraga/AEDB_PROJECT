@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C643AE81-D67D-4769-140D-1C4D20780B42" name="TABLESPACES">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>TABLESPACES</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>86FA70C6-72C0-3485-E977-2637228F963B</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="NAME_TS" id="FFED2DFB-67D4-4AFE-F9DB-77A70703ACC1">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>TABLESPACES</sourceObjSchema>
+<sourceObjName>NAME_TS</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>D33173D5-D69F-BA0F-553B-FE653DD26856</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>200 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOTAL_SIZE" id="8F9C6BBF-1363-C5ED-10D4-71022E4C0FE9">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>TABLESPACES</sourceObjSchema>
+<sourceObjName>TOTAL_SIZE</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>E7F67BEF-2614-FC83-BBC3-5EAD8E7D54AD</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FREE_SIZE" id="3D68E62A-1A47-4164-3A73-384835EF5F83">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>TABLESPACES</sourceObjSchema>
+<sourceObjName>FREE_SIZE</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>478E2456-AB74-ADAF-AA26-ECAACC9022F2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMESTAMP" id="27D16C7F-2900-3963-C11C-9E0F873FEA0C">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>TABLESPACES</sourceObjSchema>
+<sourceObjName>TIMESTAMP</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>DB34E3E6-8592-6292-D1AC-1921795380BE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6EF3E424-E220-A807-77B1-64C157643240" name="TABLESPACES_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>TABLESPACES_PK</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>4AC165AA-415C-331F-9B16-14E56EEDECCC</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FFED2DFB-67D4-4AFE-F9DB-77A70703ACC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5795602E-5FCA-C39D-95FD-8E1AB5ECB62B" schemaObject="CCB53094-517A-539E-2883-A14EBB6675F9" name="TABLESPACES_PK">
+<sourceConnName>HR.ORCL12</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>TABLESPACES_PK</sourceObjName>
+<createdBy>luis macedo</createdBy>
+<createdTime>2019-12-12 14:48:35 UTC</createdTime>
+<ownerDesignName>design_logico</ownerDesignName>
+<importedID>D580BA64-7E17-8921-3EE1-1439BC591D9A</importedID>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FFED2DFB-67D4-4AFE-F9DB-77A70703ACC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
