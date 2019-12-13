@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5CB9C26B-87F9-DFA4-909E-8ED1E62C4410" schemaObject="3266314C-342B-2452-0DC3-F3E0DC7235D5" name="SESSIONS">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5CB9C26B-87F9-DFA4-909E-8ED1E62C4410" name="SESSIONS">
 <sourceConnName>HR.ORCL12</sourceConnName>
 <sourceObjSchema>HR</sourceObjSchema>
 <sourceObjName>SESSIONS</sourceObjName>
@@ -47,9 +47,8 @@
 <ownerDesignName>design_logico</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT007</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
-<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="USERS_USERNAME" id="93C7DE16-A5D8-F71E-AE23-0F199EBC7EBC">
