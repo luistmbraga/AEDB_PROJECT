@@ -1,11 +1,12 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3EB8C025-E4AB-5766-DECF-5EFC8A424A59" name="USERS_PRIVILEGESUSERS">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3EB8C025-E4AB-5766-DECF-5EFC8A424A59" name="USER_PRIVILEGES">
 <sourceConnName>HR.ORCL12</sourceConnName>
 <sourceObjSchema>HR</sourceObjSchema>
 <sourceObjName>USERS_PRIVILEGESUSERS</sourceObjName>
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:07 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
+<ordsAlias>users_privilegesusers</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>

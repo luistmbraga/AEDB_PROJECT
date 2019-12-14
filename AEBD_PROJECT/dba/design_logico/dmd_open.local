@@ -2,6 +2,6 @@
 <design id="FDC3B72C-BEC8-DB17-572F-213740066A9C">
 	<models>
 		<model id="326C0217-6B00-B508-1F85-F825E24953C4" open="true" open_d_pm="true"/>
-		<model id="C0D145CC-9190-9066-C5AB-CB50D8BD5C13" open="true" open_d_pm="false"/>
+		<model id="C0D145CC-9190-9066-C5AB-CB50D8BD5C13" open="false" open_d_pm="false"/>
 	</models>
 </design>

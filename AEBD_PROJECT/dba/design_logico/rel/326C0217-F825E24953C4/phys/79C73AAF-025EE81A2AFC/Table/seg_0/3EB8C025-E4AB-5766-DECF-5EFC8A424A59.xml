@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="USERS_PRIVILEGESUSERS" directorySegmentName="seg_0" id="3EB8C025-E4AB-5766-DECF-5EFC8A424A59">
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="USER_PRIVILEGES" directorySegmentName="seg_0" id="3EB8C025-E4AB-5766-DECF-5EFC8A424A59">
 <createdBy>joaon</createdBy>
 <createdTime>2019-12-10 17:37:07 UTC</createdTime>
 <ownerDesignName>design_logico</ownerDesignName>
