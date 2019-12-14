@@ -25,26 +25,25 @@ oracledb.getConnection(groupCon)
 function updateTableBD(){
     dbaConnection.execute("SELECT NAME, PLATFORM_NAME, DBID FROM V$DATABASE")
                 .then(dados => {
-                console.log(dados.rows)
-                for(dado in dados.rows){
-                    var update = "UPDATE BaseDados SET NAME = :0, PLATFORM = :1, timestamp = CURRENT_TIMESTAMP() WHERE id_bd = :2" 
-                    groupConnection.execute(update, dados.rows[dado])
+                dados.rows.forEach((dado) =>{
+                    var update = "UPDATE BaseDados SET NAME = :0, PLATFORM = :1, timestamp = CURRENT_TIMESTAMP WHERE id_bd = :2"
+                    groupConnection.execute(update, dado, {autoCommit : true})
                             .then(d => {
                                 if(d.rowsAffected == 0){
-                                    console.log("A TENTAR FAZER INSERT NA TABLE DA BASE DE DADOS")
                                     var insert = "INSERT INTO BaseDados (NAME, PLATFORM, timestamp, id_bd) VALUES (:0, :1, CURRENT_TIMESTAMP, :2)"
-                                    groupConnection.execute(insert, dados.rows[dado],  { autoCommit: true })
+                                    groupConnection.execute(insert, dado,  { autoCommit: true })
                                                    .catch(erro => console.log('ERRO NO INSERT DA TABLE DA BASE DE DADOS: ' + erro ))
                                 }
                             })
                             .catch(erro => console.log("ERRO NO UPDATE DA TABLE DA BD : " + erro))
-                }
+                })
+
             })
                 .catch(erro => console.log("ERRO NO SELECT DA DATABASE: " +  erro ))
 
 }
 
-function updateTableSpaces(c){
+function updateTableSpaces(){
     dbaConnection.execute('SELECT ts.tablespace_name, TRUNC("SIZE(MB)", 2) "Size", TRUNC(fr."FREE(MB)", 2) "Free" '
                                 + 'FROM '   
                                 + '(SELECT tablespace_name, '
@@ -60,27 +59,30 @@ function updateTableSpaces(c){
                                 + 'WHERE fr.tablespace_name = df.tablespace_name (+) '
                                 + 'AND fr.tablespace_name = ts.tablespace_name (+) ')
         .then(dados => {
-                for(d in dados){
-                    var update = "UPDATE BaseDados SET TOTAL_SIZE = "  + d[1] + " , FREE_SIZE = " + d[2] +", timestamp = CURRENT_TIMESTAMP WHERE NAME_TS = " + d[0] 
-                    c.execute(update)
-                            .then(console.log("TABLESPACES ATUALIZADAS COM SUCESSO!"))
-                            .catch(erro => {
-                                    var insert = "INSERT INTO TableSpaces (NAME_TS, TOTAL_SIZE, FREE_SIZE, timestamp) VALUES ('" + d[0] + "' , " + d[1] + ", " + d[2] + ", CURRENT_TIMESTAMP)"
-                                    c.execute(insert)
-                                        .then(console.log("INSERT NO TABLESPACE COM SUCESSO: " + d[0] ))
-                                        .catch(erro => console.log("ERRO NO INSERT TABLESPACE: " + erro))
+                dados.rows.forEach((dado) => {
+                    var update = "UPDATE tablespaces SET TOTAL_SIZE = :0 , FREE_SIZE = :1, timestamp = CURRENT_TIMESTAMP WHERE NAME_TS = :2"
+                    groupConnection.execute(update, [dado[1], dado[2], dado[0]], {autoCommit : true})
+                            .then(d=> {
+                                if(d.rowsAffected == 0){
+                                    var insert = "INSERT INTO tablespaces (NAME_TS, TOTAL_SIZE, FREE_SIZE, timestamp) VALUES (:0, :1, :2, CURRENT_TIMESTAMP)"
+                                    groupConnection.execute(insert, dado, {autoCommit:true})
+                                        .catch(erro => console.log("ERRO NO INSERT TABLESPACE: "+ dado + erro))
+                                }
                             })
-                }
+                            .catch(erro => console.log("ERRO NO UPDATE DA TABLESPACE: " + erro))
+                });
         })
-        .cacth(erro => console.log("Erro no SELECT das TableSpaces: " + erro ))
+        .catch(erro => console.log("Erro no SELECT das TableSpaces: " + erro ))  
+
+        return Promise.resolve('Hello');
 }
 
-function updateDataFiles(c){
-dados = c.execute("SELECT Substr(df.file_name,1,20) NAME_DF, " +
+function updateDataFiles(){
+dbaConnection.execute("SELECT df.FILE_ID, " + 
                     "Substr(df.tablespace_name,1,40) NAME_TB, " +
+                    "Substr(df.file_name,1,20) NAME_DF, " +
                     "Round(df.bytes/1024/1024,0) FILE_SIZE, " +
-                    "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE, " +
-                    "df.FILE_ID " + 
+                    "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE " + 
                     " FROM DBA_DATA_FILES DF, " +
                     " (SELECT file_id, " +
                     " Sum(Decode(bytes,NULL,0,bytes)) used_bytes " +
@@ -88,57 +90,63 @@ dados = c.execute("SELECT Substr(df.file_name,1,20) NAME_DF, " +
                     " GROUP by file_id) E, " +
                     " (SELECT Max(bytes) free_bytes, file_id " +
                     " FROM dba_free_space " +
-                    " GROUP BY file_id) f, " +
-                    " (SELECT CURRENT_TIMESTAMP FROM dual) c, " +
-                    " (SELECT CURRENT_TIMESTAMP FROM dual) d " +
+                    " GROUP BY file_id) f " +
                     " WHERE e.file_id (+) = df.file_id " +
-                    " AND df.file_id = f.file_id (+) " +
-                    " ORDER BY df.tablespace_name,df.file_name")
+                    " AND df.file_id = f.file_id (+) ")
           .then(dados => {
-              for(d in dados){
-                var update = "UPDATE TABLESPACES SET NAME = '" + d[0] + "', TOTAL_SIZE = " + d[2] + ", FREE_SIZE = " 
-                                    + d[3] + ", timestamp = CURRENT_TIMESTAMP, NAME_TS = '" + d[1] + "', FILE_ID = " + d[4]
-                    c.execute(update)
-                     .then()
-                     .catch(erro => console.log('ERRO NO UPDATE DOS DATAFILES : ' + erro ))
-              }
+              dados.rows.forEach((dado) =>{
+                var update = "UPDATE datafiles SET NAME = :0, TOTAL_SIZE = :1, FREE_SIZE = :2, timestamp = CURRENT_TIMESTAMP, NAME_TS = :3 WHERE FILE_ID = :4"
+                groupConnection.execute(update, [dado[2], dado[3], dado[4], dado[1], dado[0]], {autoCommit:true})
+                        .then(d => {
+                            if(d.rowsAffected == 0){
+                                var insert = "INSERT INTO datafiles (file_id, name_ts, name, total_size, free_size, timestamp) VALUES (:0, :1, :2, :3, :4, CURRENT_TIMESTAMP)"
+                                groupConnection.execute(insert, dado, {autoCommit:true})
+                                                .catch(erro => console.log("ERRO NO INSERT DATAFILES: " + erro))
+                            }
+                        })
+                        .catch(erro => console.log('ERRO NO UPDATE DOS DATAFILES: ' + erro ))
+              })
           })
           .catch(erro => console.log("ERRO NO SELECT dos DATAFILES: " + erro))
-    
-
 }
 
 
 function updateUsers(c){
-    c.execute("Select username, last_login, account_status, DEFAULT_TABLESPACE From dba_users")
+    dbaConnection.execute("Select username, last_login, account_status, DEFAULT_TABLESPACE From dba_users")
         .then(dados => {
-            for(d in dados){
-                var update = "UPDATE USERS SET LAST_LOGIN = '" + d[1] + "', ATIVO = '" + d[2] 
-                                + "', timestamp = CURRENT_TIMESTAMP, NAME_TS = '" + d[3] + "' WHERE USERNAME = '" + d[0] +"'"
-
-                c.execute(update)
-                 .then()
-                 .cacth(erro =>{
-                    var insert = "INSERT INTO USERS (USERNAME, LAST_LOGIN, ATIVO, TIMESTAMP, NAME_TS)" + 
-                                " VALUES ('"+ d[0] +"', '" + d[1] + "', '" + d[2] + "', CURRENT_TIMESTAMP, '" + d[3] + "')"
-                 })
-            }
+            dados.rows.forEach((dado) => {
+                var update = "UPDATE USERS SET LAST_LOGIN = :0, ATIVO = :1, timestamp = CURRENT_TIMESTAMP, NAME_TS = :2 WHERE USERNAME = :3"
+                groupConnection.execute(update, [dado[1], dado[2], dado[3], dado[0]], {autoCommit:true})
+                            .then(d => {
+                                if(d.rowsAffected == 0){
+                                    var insert = "INSERT INTO USERS (USERNAME, LAST_LOGIN, ATIVO, TIMESTAMP, NAME_TS) VALUES (:0, :1, :2, CURRENT_TIMESTAMP, :3)"
+                                    groupConnection.execute(insert, dado, {autoCommit : true})
+                                                .catch(erro => console.log("ERRO NO INSERT DOS USERS : " + erro))
+                                }
+                            })
+                            .catch(erro => console.log("ERRO NO UPDATE DOS USERS : " + erro))
+            })
         })
         .catch(erro => console.log("ERRO NO SELECT DOS USERS: " + erro))
 }
 
-function updateRoles(c){
-    dados = c.execute("SELECT ROLE FROM dba_roles");
-    for(d in dados){
-        var update = "UPDATE ROLES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = '" + d[0] + "'";
-        c.execute(update)
-            .then()
-            .catch(erro => {
-                var insert = "INSERT INTO ROLES (NAME, TIMESTAMP) VALUES ('" + d[0] + "' ,  CURRENT_TIMESTAMP)"
-                c.execute(insert)
-            })
-    }
+function updateRoles(){
+    dbaConnection.execute("SELECT ROLE FROM dba_roles")
+                .then(dados => {
+                    dados.rows.forEach((dado) => {
+                        var update = "UPDATE ROLES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = :0";
+                        groupConnection.execute(update, dado, {autoCommit:true})
+                            .then(d => {
+                                if(d.rowsAffected == 0){
+                                    var insert = "INSERT INTO ROLES (NAME, TIMESTAMP) VALUES (:0 ,  CURRENT_TIMESTAMP)"
+                                    groupConnection.execute(insert, dado, {autoCommit : true})
+                                }
+                            })
+                    })
+                })
+
 }
+
 
 function updatePrivileges(c){
     dados = c.execute("select distinct PRIVILEGE from dba_sys_privs")
@@ -154,7 +162,7 @@ function updatePrivileges(c){
 }
 
 function updateUsersPrivileges(c){
-    dados = c.execute("select GRANTEE, PRIVILEGE from dba_sys_privs"); PRIV_NAME
+    dados = c.execute("select GRANTEE, PRIVILEGE from dba_sys_privs"); 
     for(d in dados){
         var update = "UPDATE USERS_PRIVILEGES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE USERS_USERNAME = '" + d[0] + "'";
             c.execute(update)
@@ -238,25 +246,34 @@ function updateBD(){
                 // atualizar as tabelas todas
                 try{
                     updateTableBD()
-                    /*
-                    updateCPU(connection)
-                    updateMemory(connection)
-                    updateTableSpaces(connection)
-                        .then(d => {
-                            updateDataFiles(connection)
-                            updateUsers(connection)
-                                .then(d =>{
+                    
+                    //updateCPU(connection)
+                    //updateMemory(connection)
+                    updateTableSpaces()
+                        .then( d => {
+                            console.log("UPDATE TABLESPACES REALIZADO")
+                            
+                            updateDataFiles()
+                            
+                            updateUsers()
+                            /*
+                                .then(function(){ console.log("CORREU TUDO BEM!")
+                                    /*
                                     updateSessions(connection)
                                     updateRoles(connection)
                                         .then(d => updateUsersRoles(connection))
                                     updatePrivileges(connection)
                                         .then(d => updateUsersPrivileges(connection))
-                              })
+                                        
+                                })*/
+                                
                         })
-                    */
+                        .catch(erro => console.log( "ERRO NO TABLESPACES: " + erro))
+                    
                 }
                 catch(erro){
                     console.log('ERRO: ' + erro)
+                    console.log(erro.stack)
                 }
 }
 
