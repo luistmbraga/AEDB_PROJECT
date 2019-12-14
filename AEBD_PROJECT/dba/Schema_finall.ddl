@@ -212,7 +212,7 @@ ALTER TABLE userroles
 
 CREATE TABLE users (
     username     VARCHAR2(70 BYTE) NOT NULL,
-    last_login   TIMESTAMP NOT NULL,
+    last_login   TIMESTAMP NULL,
     ativo        VARCHAR2(30) NOT NULL,
     timestamp    TIMESTAMP NOT NULL,
     name_ts      VARCHAR2(200 BYTE) NOT NULL
