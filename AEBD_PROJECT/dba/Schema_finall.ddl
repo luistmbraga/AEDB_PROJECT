@@ -46,8 +46,8 @@ ALTER TABLE cpu
 
 CREATE TABLE datafiles (
     file_id      INTEGER NOT NULL,
-    name_ts      VARCHAR2(200 BYTE) NOT NULL,
-    name         VARCHAR2(20 BYTE) NOT NULL,
+    name_ts      VARCHAR2(60 BYTE) NOT NULL,
+    name         VARCHAR2(200 BYTE) NOT NULL,
     total_size   NUMBER(30) NOT NULL,
     free_size    NUMBER(30) NOT NULL,
     timestamp    TIMESTAMP NOT NULL
@@ -87,7 +87,7 @@ ALTER TABLE memory
         USING INDEX hr.memory_pk;
 
 CREATE TABLE "PRIVILEGES" (
-    name        VARCHAR2(20 BYTE) NOT NULL,
+    name        VARCHAR2(50 BYTE) NOT NULL,
     timestamp   TIMESTAMP NOT NULL
 )
 PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING
@@ -105,7 +105,7 @@ ALTER TABLE "PRIVILEGES"
         USING INDEX hr.users_privileges_pk;
 
 CREATE TABLE roles (
-    name        VARCHAR2(20 BYTE) NOT NULL,
+    name        VARCHAR2(50 BYTE) NOT NULL,
     timestamp   TIMESTAMP NOT NULL
 )
 PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING
@@ -124,7 +124,7 @@ ALTER TABLE roles
 
 CREATE TABLE sessions (
     id_ses           NUMBER(20) NOT NULL,
-    program          VARCHAR2(20 BYTE) NOT NULL,
+    program          VARCHAR2(70 BYTE) NOT NULL,
     timestamp        TIMESTAMP NOT NULL,
     users_username   VARCHAR2(70 BYTE) NOT NULL
 )
@@ -163,7 +163,7 @@ ALTER TABLE tablespaces
         USING INDEX hr.tablespaces_pk;
 
 CREATE TABLE user_privileges (
-    priv_name        VARCHAR2(20 BYTE) NOT NULL,
+    priv_name        VARCHAR2(50 BYTE) NOT NULL,
     users_username   VARCHAR2(70 BYTE) NOT NULL,
     timestamp        TIMESTAMP NOT NULL
 )
@@ -188,7 +188,7 @@ ALTER TABLE user_privileges
 
 CREATE TABLE userroles (
     name_user    VARCHAR2(70 BYTE) NOT NULL,
-    roles_name   VARCHAR2(20 BYTE) NOT NULL,
+    roles_name   VARCHAR2(50 BYTE) NOT NULL,
     timestamp    TIMESTAMP NOT NULL
 )
 PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING

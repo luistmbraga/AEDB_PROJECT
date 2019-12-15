@@ -1,0 +1,17 @@
+SELECT * FROM BASEDADOS;
+SELECT * FROM CPU;
+SELECT * FROM MEMORY;
+SELECT * FROM TABLESPACES;
+SELECT * FROM DATAFILES;
+
+Select * From Users;
+
+Select * From Sessions;
+
+Select * From Roles;
+
+Select * From USERROLES;
+
+Select * From PRIVILEGES;
+
+Select * From USER_PRIVILEGES;
