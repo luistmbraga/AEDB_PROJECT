@@ -3,7 +3,7 @@ const oracledb = require('oracledb');
 const dbaCon= {
   user          : "system",
   password      : "oracle",
-  connectString : "//localhost/orcl"
+  connectString : "//localhost/orcl12c"
 };
 
 const groupCon= {
@@ -15,7 +15,7 @@ const groupCon= {
 var dbaConnection;
 oracledb.getConnection(dbaCon)
         .then(c => dbaConnection = c)
-        .catch(erro => console.log("ERROR IN DBA CONNECTION: " + error))
+        .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
                             
 var groupConnection;
 oracledb.getConnection(groupCon)
@@ -193,38 +193,32 @@ function updateUsersRoles(c){
      .catch(erro => console.log("ERRO NO SELECT DO USERROLES: " +  erro))
 }
 
-function updateCPU(c){
-    /*
-                select
-            metric_name
-            from
-            v$metricname
-            where
-            metric_id = 2108
-            and
-            group_name = 'System Metrics Long Duration';
+function updateCPU(){
+    dbaConnection.execute("select value from SYS.V_$SYSMETRIC where METRIC_NAME IN ('Database CPU Time Ratio') and INTSIZE_CSEC =(select max(INTSIZE_CSEC) from SYS.V_$SYSMETRIC)")
+                .then(dados => {
+                    //console.log(dados)
+                    //console.log(dados.rows[0][0])
+                    var insert = "insert into cpu (ID_C,USAGE,TOTAL,TIMESTAMP) VALUES(2,:0,00,CURRENT_TIMESTAMP)"
+                    groupConnection.execute(insert,dados.rows[0],{autoCommit : true})
+                                    .catch(erro => console.log('ERRO NO INSERT DNA TABLE CPU: ' + erro ))
 
-            METRIC_NAME
-            --------------------
-            Database CPU Time Ratio
-
-            select
-            metric_name,
-            value
-            from
-            SYS.V_$SYSMETRIC
-            where
-            METRIC_NAME IN
-                ('Database CPU Time Ratio')
-            and
-            INTSIZE_CSEC =
-            (select max(INTSIZE_CSEC) from SYS.V_$SYSMETRIC);
-    */
+            })
+                .catch(erro => console.log("ERRO NO SELECT DA TABLE CPU: " +  erro ))
 }
 
-function updateMemory(c){
-    /*
-    */
+function updateMemory(){
+    dbaConnection.execute(" SELECT round(SUM(bytes/1024/1024)) FROM \"SYS\".\"V_$SGASTAT\" Where Name Like '%free memory%' union SELECT sum(value)/1024/1024  FROM v$sga")
+                .then(dados => {
+                   // console.log(dados.rows)
+                    var insert = "insert into memory (ID_M,TOTAL,USAGE,TIMESTAMP) VALUES(1,:1,:0,CURRENT_TIMESTAMP)"
+                    var result = []
+                    result[0] = dados.rows[0][0]
+                    result[1] = dados.rows[1][0]
+                    //console.log(result) 
+                    groupConnection.execute(insert,result,{autoCommit : true})
+                                    .catch(erro => console.log('ERRO NO INSERT DA TABLE MEMORY: ' + erro ))
+        })
+                .catch(erro => console.log("ERRO NO SELECT DA TABLE MEMORY: " +  erro ))
 }
 
 function updateSessions(c){
@@ -247,15 +241,15 @@ function updateBD(){
                 try{
                     updateTableBD()
                     
-                    //updateCPU(connection)
-                    //updateMemory(connection)
+                    updateCPU()
+                    updateMemory()
                     updateTableSpaces()
                         .then( d => {
                             console.log("UPDATE TABLESPACES REALIZADO")
                             
                             updateDataFiles()
                             
-                            updateUsers()
+                            //updateUsers()
                             /*
                                 .then(function(){ console.log("CORREU TUDO BEM!")
                                     /*
