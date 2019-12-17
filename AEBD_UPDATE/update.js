@@ -153,38 +153,50 @@ function updateUsers(c){
 }
 
 function updateRoles(){
-    dbaConnection.execute("SELECT ROLE FROM dba_roles")
-                .then(dados => {
-                    dados.rows.forEach((dado) => {
-                        var update = "UPDATE ROLES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = :0";
-                        groupConnection.execute(update, dado, {autoCommit:true})
-                            .then(d => {
-                                if(d.rowsAffected == 0){
-                                    var insert = "INSERT INTO ROLES (NAME, TIMESTAMP) VALUES (:0, CURRENT_TIMESTAMP)"
-                                    groupConnection.execute(insert, dado, {autoCommit : true})
-                                }
-                            })
+    return new Promise(function (resolve, reject) {
+        dbaConnection.execute("SELECT ROLE FROM dba_roles")
+                    .then(dados => {
+                        var size = dados.rows.length - 1
+                        dados.rows.forEach(function(dado, i) {
+                            var update = "UPDATE ROLES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = :0";
+                            groupConnection.execute(update, dado, {autoCommit:true})
+                                .then(d => {
+                                    if(d.rowsAffected == 0){
+                                        var insert = "INSERT INTO ROLES (NAME, TIMESTAMP) VALUES (:0, CURRENT_TIMESTAMP)"
+                                        groupConnection.execute(insert, dado, {autoCommit : true})
+                                                       .catch(erro => reject("ERRO NO INSERT DOS ROLES: " + erro))
+                                    }
+                                    if(i == size) resolve('Success')
+                                })
+                                .catch(erro => reject("ERRO NO UPDATE ROLES: " + erro))
+                        })
                     })
-                })
-    return Promise.resolve('Success');
+                    .catch(erro => reject("ERRO NO SELECT DOS ERROS"))
+    })
 }
 
 
 function updatePrivileges(){
-    dbaConnection.execute("select distinct PRIVILEGE from dba_sys_privs")
-            .then(dados => {
-                dados.rows.forEach((dado) => {
-                    var update = "UPDATE PRIVILEGES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = :0";
-                    groupConnection.execute(update, dado, {autoCommit:true})
-                    .then(d => {
-                        if(d.rowsAffected == 0){
-                            var insert = "INSERT INTO PRIVILEGES (NAME, TIMESTAMP) VALUES (:0,  CURRENT_TIMESTAMP)"
-                            groupConnection.execute(insert, dado, {autoCommit:true})
-                        }
+    return new Promise(function (resolve, reject) {
+        dbaConnection.execute("select distinct PRIVILEGE from dba_sys_privs")
+                .then(dados => {
+                    var size = dados.rows.length - 1
+                    dados.rows.forEach(function(dado, i) {
+                        var update = "UPDATE PRIVILEGES SET TIMESTAMP = CURRENT_TIMESTAMP WHERE NAME = :0";
+                        groupConnection.execute(update, dado, {autoCommit:true})
+                        .then(d => {
+                            if(d.rowsAffected == 0){
+                                var insert = "INSERT INTO PRIVILEGES (NAME, TIMESTAMP) VALUES (:0,  CURRENT_TIMESTAMP)"
+                                groupConnection.execute(insert, dado, {autoCommit:true})
+                                               .catch(erro => reject("ERRO NO INSERT DOS PRIVILEGES: " + erro))
+                            }
+                            if(i == size) resolve('Success')
+                        })
+                        .catch(erro => reject("ERRO NO UPDATE DOS PRIVILEGES: " + erro))
                     })
                 })
-            })
-    return Promise.resolve('Success');
+                .catch(erro => reject("ERRO NO SELECT DOS PRIVILEGES: " + erro))
+    })
 }
 
 function updateUsersPrivileges(){
@@ -199,7 +211,7 @@ function updateUsersPrivileges(){
                                            .then(result => {
                                                if(result.rows[0][0] > 0){
                                                     var insert = "INSERT INTO USER_PRIVILEGES (PRIV_NAME, USERS_USERNAME, TIMESTAMP) VALUES (:0, :1,  CURRENT_TIMESTAMP)"
-                                                    c.execute(insert, dado, {autoCommit:true})
+                                                    groupConnection.execute(insert, dado, {autoCommit:true})
                                                }
                                            })
                         }
@@ -272,8 +284,8 @@ function updateSessions(){
                 " from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c " + 
                 "WHERE USERNAME IS NOT NULL" +
                 " order by 1" )
-        .then(dados => {
-                groupConnection.execute('TRUNCATE TABLE SESSIONS')
+        .then(async dados => {
+                await groupConnection.execute('TRUNCATE TABLE SESSIONS')
                                .then(d => {
                                     dados.rows.forEach((dado) =>{
                                         var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username) VALUES (:0, :1, CURRENT_TIMESTAMP, :2)"
@@ -331,20 +343,22 @@ async function updateBD(){
                                 updateUsers()
                                             .then( de =>{
                                                 //closeConnections()
-                                                /*
+                                                
                                                 updateSessions()
-                                                await updateRoles()
+                                                
+                                                updateRoles()
                                                     .then(d => updateUsersRoles())
-                                                await updatePrivileges()
-                                                    //.then(d => updateUsersPrivileges())*/
+                                                updatePrivileges()
+                                                    .then(d => updateUsersPrivileges())
                                                     
                                             })
+                                            .catch(error => console.log(error))
                                     
                             })
-                            .catch(erro => console.log("ERROR IN TABLESPACES UPDATE: " + erro))
+                            .catch(erro => console.log(erro))
                         //})
                         //.catch(erro => console.log("Erro nas conecções: " + erro))
 
 }
 
-setInterval(updateBD, 2000)
+setInterval(updateBD, 10000)
