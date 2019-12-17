@@ -259,7 +259,6 @@ function updateCPU(){
                         groupConnection.execute(insert,dados.rows[0],{autoCommit : true})
                                         .catch(erro => console.log('ERRO NO INSERT DNA TABLE CPU: ' + erro ))
                     }
-
             })
                 .catch(erro => console.log("ERRO NO SELECT DA TABLE CPU: " +  erro ))
 }
@@ -284,51 +283,25 @@ function updateSessions(){
                 " from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c " + 
                 "WHERE USERNAME IS NOT NULL" +
                 " order by 1" )
-        .then(async dados => {
-                await groupConnection.execute('TRUNCATE TABLE SESSIONS')
-                               .then(d => {
+        .then(dados => {
+                //await groupConnection.execute('TRUNCATE TABLE SESSIONS')
+                  //             .then(d => {
                                     dados.rows.forEach((dado) =>{
-                                        var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username) VALUES (:0, :1, CURRENT_TIMESTAMP, :2)"
+                                        var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username, atualizado) VALUES (:0, :1, CURRENT_TIMESTAMP, :2, 1)"
                                         groupConnection.execute(insert, dado, {autoCommit:true})
+                                                       .catch(erro => console.log("ERRO NO INSERT SESSIONS: " + erro))
                                     })
-                               })
-                               .catch(erro => console.log("ERRO SESSIONS : " + erro))
+                    //           })
+                               //.catch(erro => console.log("ERRO SESSIONS : " + erro))
 
         })
         .catch(erro => console.log("ERRO NO SELECT SESSIONS: " +erro))
 }
 
-function openConnections(){
-    oracledb.getConnection(dbaCon12c)
-    .then(c => dbaConnection12c = c)
-    .catch(error => console.log("ERROR IN DBA CONNECTION (12c): " + error))
-
-    oracledb.getConnection(dbaCon)
-        .then(c => dbaConnection = c)
-        .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
-    
-    oracledb.getConnection(groupCon)
-        .then(c => groupConnection = c)
-        .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
-    console.log("DEntro do openConnections!")
-    return new Promise(function (resolve, reject) {
-        resolve('Success!')
-    })
-}
-
-function closeConnections(){
-    dbaConnection12c.close()
-    dbaConnection.close()
-    groupConnection.close()
-}
 
 async function updateBD(){
                 console.log("A fazer update à BD...")
-                    /*
-                    openConnections()
-                        .then(v =>{
-                        
-                        console.log("Correu bem a ligação")*/
+                    
 
                         updateTableBD()
                     
@@ -336,29 +309,30 @@ async function updateBD(){
                         updateMemory()
 
                         updateTableSpaces()
-                            .then( d => {
+                            .then(d => {
                                 console.log("UPDATE TABLESPACES REALIZADO")
                                 updateDataFiles()
                                 
                                 updateUsers()
-                                            .then( de =>{
-                                                //closeConnections()
+                                            .then(async de =>{
                                                 
                                                 updateSessions()
                                                 
-                                                updateRoles()
-                                                    .then(d => updateUsersRoles())
-                                                updatePrivileges()
-                                                    .then(d => updateUsersPrivileges())
-                                                    
+                                                await updateRoles()
+                                                    .then(async d => { 
+                                                        updateUsersRoles()
+                                                    })
+                                                await updatePrivileges()
+                                                    .then(async d => { 
+                                                        await updateUsersPrivileges()
+                                                    })
+                                                
                                             })
                                             .catch(error => console.log(error))
                                     
                             })
                             .catch(erro => console.log(erro))
-                        //})
-                        //.catch(erro => console.log("Erro nas conecções: " + erro))
-
 }
 
-setInterval(updateBD, 10000)
+setTimeout(updateBD, 500)
+setInterval(updateBD, 5000)
