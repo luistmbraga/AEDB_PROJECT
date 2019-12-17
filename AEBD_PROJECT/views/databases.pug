@@ -7,17 +7,20 @@ block content
                 center
                     img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
             .w3-container
-              each db in databases.rows
-                table.w3-table.w3-centered
-                  tr
-                    th.w3-gray
-                      b Id
-                    td.w3-light-gray= db[0]
-                  tr
-                    th.w3-gray
-                      b Name
-                    td.w3-light-gray= db[1]
-                  tr
-                    th.w3-gray
-                      b Platform
-                    td.w3-light-gray= db[2]
+              table.w3-table.w3-centered
+                tr
+                  th.w3-gray
+                    b Id
+                  td.w3-light-gray= databases.id_bd
+                tr
+                  th.w3-gray
+                    b Name
+                  td.w3-light-gray= databases.name
+                tr
+                  th.w3-gray
+                    b Platform
+                  td.w3-light-gray= databases.platform
+                tr
+                  th.w3-gray
+                    b TimeStamp
+                  td.w3-light-gray= databases.timestamp

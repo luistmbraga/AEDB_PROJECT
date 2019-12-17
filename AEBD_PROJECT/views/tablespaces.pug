@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .w3-container
+        .w3-card-4
+            header.w3-container.w3-teal
+                h1.w3-center TableSpaces
+                center
+                    img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
+            .w3-container
+              table.w3-table-all
+                tr.w3-amber
+                  th Name
+                  th Total Space (MB)
+                  th Free Space (MB)
+                  th TimeStamp
+                each t in tablespaces       
+                  tr
+                    td= t.name_ts
+                    td= t.total_size 
+                    td=t.free_size
+                    td= t.timestamp
+                    td
+                      form(action= '/datafiles')
+                        input(type="hidden" name="tablespace" value=t.name_ts)
+                        button(class="fas fa-eye" style="background-color: #FFBF00; color: black; padding: 22px 22px; border-radius: 12px;").w3-hover-teal
+              footer.w3-container.w3-teal
+                adress Gerado por Grupo 6

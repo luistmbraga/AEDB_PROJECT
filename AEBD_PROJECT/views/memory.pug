@@ -3,41 +3,39 @@ block content
   .w3-container
         .w3-card-4
             header.w3-container.w3-teal
-                h1.w3-center CPU USAGE
+                h1.w3-center MEMORY USAGE
                 center
                     img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
 
         .w3-container(style = ' width:90%')
             canvas#myChart
         script.
-            var usagesA = !{JSON.stringify(usages)}
+            var usedA = !{JSON.stringify(used)}
+            var totalA = !{JSON.stringify(total)}
             var datasA = !{JSON.stringify(datas)}
-            console.log(datasA)
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-            type: 'line',
+            
+            type: 'bar',
             data: {
-                labels: datasA,
-                datasets: [{ 
-                    data: usagesA,
-                    label: "CPU Usage",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }
-                ]
+            labels: datasA,
+            datasets: [{
+            label: '# utilização Memória',
+            data: usedA,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 
+            'rgba(255, 99, 132, 0.2)',
+            borderWidth: 0.5
+            }]
             },
             options: {
-                scales: {
-                    yAxes: [{
-                    ticks: {
-                    beginAtZero: true,max:100
-                    }
-                    }]
-                },
-                title: {
-                display: true,
-                text: 'CPU Usage'
-                }
+            scales: {
+            yAxes: [{
+            ticks: {
+            beginAtZero: true,max:800
+            }
+            }]
+            }
             }
             });
         hr

@@ -97,8 +97,8 @@ function updateTableSpaces(){
 
 function updateDataFiles(){
 dbaConnection.execute("SELECT df.FILE_ID, " + 
-                    "Substr(df.tablespace_name,1,40) NAME_TB, " +
-                    "Substr(df.file_name,1,20) NAME_DF, " +
+                    "df.tablespace_name, " +
+                    "df.file_name, " +
                     "Round(df.bytes/1024/1024,0) FILE_SIZE, " +
                     "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE " + 
                     " FROM DBA_DATA_FILES DF, " +
