@@ -19,19 +19,22 @@ const groupCon= {
   };
 
 var dbaConnection12c;
-oracledb.getConnection(dbaCon12c)
-        .then(c => dbaConnection12c = c)
-        .catch(erro => console.log("ERROR IN DBA CONNECTION (12c): " + error))
 
 var dbaConnection;
-oracledb.getConnection(dbaCon)
-        .then(c => dbaConnection = c)
-        .catch(erro => console.log("ERROR IN DBA CONNECTION: " + error))
                             
 var groupConnection;
+
+oracledb.getConnection(dbaCon12c)
+.then(c => dbaConnection12c = c)
+.catch(error => console.log("ERROR IN DBA CONNECTION (12c): " + error))
+
+oracledb.getConnection(dbaCon)
+    .then(c => dbaConnection = c)
+    .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
+
 oracledb.getConnection(groupCon)
-        .then(c => groupConnection = c)
-        .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
+    .then(c => groupConnection = c)
+    .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
 
 function updateTableBD(){
     dbaConnection.execute("SELECT NAME, PLATFORM_NAME, DBID FROM V$DATABASE")
@@ -55,38 +58,41 @@ function updateTableBD(){
 }
 
 function updateTableSpaces(){
-    dbaConnection.execute('SELECT ts.tablespace_name, TRUNC("SIZE(MB)", 2) "Size", TRUNC(fr."FREE(MB)", 2) "Free" '
-                                + 'FROM '   
-                                + '(SELECT tablespace_name, '
-                                + 'SUM (bytes) / (1024 * 1024) "FREE(MB)" '
-                                + 'FROM dba_free_space '
-                                + 'GROUP BY tablespace_name) fr, '
-                                + '(SELECT tablespace_name, SUM(bytes) / (1024 * 1024) "SIZE(MB)", COUNT(*) '
-                                + '"File Count", SUM(maxbytes) / (1024 * 1024) "MAX_EXT" '
-                                + 'FROM dba_data_files '
-                                + 'GROUP BY tablespace_name) df, '
-                                + '(SELECT tablespace_name '
-                                + 'FROM dba_tablespaces) ts '
-                                + 'WHERE fr.tablespace_name = df.tablespace_name (+) '
-                                + 'AND fr.tablespace_name = ts.tablespace_name (+) ')
-        .then(dados => {
-                dados.rows.forEach((dado) => {
-                    var update = "UPDATE tablespaces SET TOTAL_SIZE = :0 , FREE_SIZE = :1, timestamp = CURRENT_TIMESTAMP WHERE NAME_TS = :2"
-                    groupConnection.execute(update, [dado[1], dado[2], dado[0]], {autoCommit : true})
-                            .then(d=> {
-                                if(d.rowsAffected == 0){
-                                    var insert = "INSERT INTO tablespaces (NAME_TS, TOTAL_SIZE, FREE_SIZE, timestamp) VALUES (:0, :1, :2, CURRENT_TIMESTAMP)"
-                                    groupConnection.execute(insert, dado, {autoCommit:true})
-                                        .catch(erro => console.log("ERRO NO INSERT TABLESPACE: "+ dado + erro))
-                                }
-                            })
-                            .catch(erro => console.log("ERRO NO UPDATE DA TABLESPACE: " + erro))
-                });
-                
-        })
-        .catch(erro => console.log("Erro no SELECT das TableSpaces: " + erro ))  
-    
-        return Promise.resolve('Success');
+    return new Promise(function (resolve, reject) {
+        
+        dbaConnection.execute('SELECT ts.tablespace_name, TRUNC("SIZE(MB)", 2) "Size", TRUNC(fr."FREE(MB)", 2) "Free" '
+                                    + 'FROM '   
+                                    + '(SELECT tablespace_name, '
+                                    + 'SUM (bytes) / (1024 * 1024) "FREE(MB)" '
+                                    + 'FROM dba_free_space '
+                                    + 'GROUP BY tablespace_name) fr, '
+                                    + '(SELECT tablespace_name, SUM(bytes) / (1024 * 1024) "SIZE(MB)", COUNT(*) '
+                                    + '"File Count", SUM(maxbytes) / (1024 * 1024) "MAX_EXT" '
+                                    + 'FROM dba_data_files '
+                                    + 'GROUP BY tablespace_name) df, '
+                                    + '(SELECT tablespace_name '
+                                    + 'FROM dba_tablespaces) ts '
+                                    + 'WHERE fr.tablespace_name = df.tablespace_name (+) '
+                                    + 'AND fr.tablespace_name = ts.tablespace_name (+) ')
+            .then(dados => {
+                    var size = dados.rows.length - 1
+                    dados.rows.forEach(function(dado, i) {
+                        console.log("UPDATING IN TABLESPACES")
+                        var update = "UPDATE tablespaces SET TOTAL_SIZE = :0 , FREE_SIZE = :1, timestamp = CURRENT_TIMESTAMP WHERE NAME_TS = :2"
+                        groupConnection.execute(update, [dado[1], dado[2], dado[0]], {autoCommit : true})
+                                .then(async d=> {
+                                    if(d.rowsAffected == 0){
+                                        var insert = "INSERT INTO tablespaces (NAME_TS, TOTAL_SIZE, FREE_SIZE, timestamp) VALUES (:0, :1, :2, CURRENT_TIMESTAMP)"
+                                        groupConnection.execute(insert, dado, {autoCommit:true})
+                                            .catch(erro => reject("ERRO NO INSERT TABLESPACE: " + erro))
+                                    }
+                                    if(i == size) resolve('Success!')
+                                })
+                                .catch(erro => reject("ERRO NO UPDATE DA TABLESPACE: " + erro))
+                    });
+            })
+            .catch(erro => reject("Erro no SELECT das TableSpaces: " + erro))  
+    })
 }
 
 function updateDataFiles(){
@@ -124,25 +130,26 @@ dbaConnection.execute("SELECT df.FILE_ID, " +
 
 
 function updateUsers(c){
+    return new Promise(function (resolve, reject) {
     dbaConnection.execute("Select username, last_login, account_status, DEFAULT_TABLESPACE From dba_users")
         .then(dados => {
-            dados.rows.forEach((dado) => {
+            var size = dados.rows.length - 1
+            dados.rows.forEach(function(dado, i) {
                 var update = "UPDATE USERS SET LAST_LOGIN = :0, ATIVO = :1, timestamp = CURRENT_TIMESTAMP, NAME_TS = :2 WHERE USERNAME = :3"
                 groupConnection.execute(update, [dado[1], dado[2], dado[3], dado[0]], {autoCommit:true})
                             .then(d => { //console.log("Rows affected: " + d.rowsAffected)
                                 if(d.rowsAffected == 0){
                                     var insert = "INSERT INTO USERS (USERNAME, LAST_LOGIN, ATIVO, TIMESTAMP, NAME_TS) VALUES (:0, :1, :2, CURRENT_TIMESTAMP, :3)"
                                     groupConnection.execute(insert, dado, {autoCommit : true})
-                                                .catch(erro => console.log("ERRO NO INSERT DOS USERS (TS : " + dado[3] +   ")   : " + erro))
+                                                .catch(erro => reject("ERRO NO INSERT DOS USERS (TS : " + dado[3] +   ")   : " + erro))
                                 }
+                                if(i == size) resolve('Success')
                             })
-                            .catch(erro => console.log("ERRO NO UPDATE DOS USERS : " + erro))
+                            .catch(erro => reject("ERRO NO UPDATE DOS USERS : " + erro))
             })
         })
-        .catch(erro => console.log("ERRO NO SELECT DOS USERS: " + erro))
-
-        return Promise.resolve('Success');
-
+        .catch(erro => reject("ERRO NO SELECT DOS USERS: " + erro))
+    })
 }
 
 function updateRoles(){
@@ -279,35 +286,65 @@ function updateSessions(){
         .catch(erro => console.log("ERRO NO SELECT SESSIONS: " +erro))
 }
 
+function openConnections(){
+    oracledb.getConnection(dbaCon12c)
+    .then(c => dbaConnection12c = c)
+    .catch(error => console.log("ERROR IN DBA CONNECTION (12c): " + error))
+
+    oracledb.getConnection(dbaCon)
+        .then(c => dbaConnection = c)
+        .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
+    
+    oracledb.getConnection(groupCon)
+        .then(c => groupConnection = c)
+        .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
+    console.log("DEntro do openConnections!")
+    return new Promise(function (resolve, reject) {
+        resolve('Success!')
+    })
+}
+
+function closeConnections(){
+    dbaConnection12c.close()
+    dbaConnection.close()
+    groupConnection.close()
+}
+
 async function updateBD(){
                 console.log("A fazer update à BD...")
-                try{
-                    updateTableBD()
+                    /*
+                    openConnections()
+                        .then(v =>{
+                        
+                        console.log("Correu bem a ligação")*/
+
+                        updateTableBD()
                     
-                    updateCPU()
-                    updateMemory()
-                    await updateTableSpaces()
-                        .then( async d => {
-                            
-                            updateDataFiles()
-                            
-                            await updateUsers()
-                                        .then(async de =>{
-                                            
-                                            updateSessions()
-                                            await updateRoles()
-                                                .then(d => updateUsersRoles())
-                                            await updatePrivileges()
-                                                //.then(d => updateUsersPrivileges())
-                                                
-                                        })
+                        updateCPU()
+                        updateMemory()
+
+                        updateTableSpaces()
+                            .then( d => {
+                                console.log("UPDATE TABLESPACES REALIZADO")
+                                updateDataFiles()
                                 
-                        })
-                }
-                catch(erro){
-                    console.log('ERRO: ' + erro)
-                    console.log(erro.stack)
-                }
+                                updateUsers()
+                                            .then( de =>{
+                                                //closeConnections()
+                                                /*
+                                                updateSessions()
+                                                await updateRoles()
+                                                    .then(d => updateUsersRoles())
+                                                await updatePrivileges()
+                                                    //.then(d => updateUsersPrivileges())*/
+                                                    
+                                            })
+                                    
+                            })
+                            .catch(erro => console.log("ERROR IN TABLESPACES UPDATE: " + erro))
+                        //})
+                        //.catch(erro => console.log("Erro nas conecções: " + erro))
+
 }
 
 setInterval(updateBD, 2000)
