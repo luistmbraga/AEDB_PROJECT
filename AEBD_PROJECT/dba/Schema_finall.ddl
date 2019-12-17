@@ -26,8 +26,7 @@ ALTER TABLE basedados
 
 CREATE TABLE cpu (
     id_c        NUMBER(30) NOT NULL,
-    usage       NUMBER(20) NOT NULL,
-    total       NUMBER(20) NOT NULL,
+    usage       NUMBER(20,3) NOT NULL,
     timestamp   TIMESTAMP NOT NULL
 )
 PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING
@@ -68,8 +67,8 @@ ALTER TABLE datafiles
 
 CREATE TABLE memory (
     id_m        NUMBER(30) NOT NULL,
-    total       NUMBER(30) NOT NULL,
-    usage       NUMBER(30) NOT NULL,
+    total       NUMBER(30,3) NOT NULL,
+    free       NUMBER(30,3) NOT NULL,
     timestamp   TIMESTAMP NOT NULL
 )
 PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING

@@ -241,9 +241,9 @@ function updateCPU(){
     dbaConnection12c.execute("select value from SYS.V_$SYSMETRIC where METRIC_NAME IN ('Database CPU Time Ratio') and INTSIZE_CSEC =(select max(INTSIZE_CSEC) from SYS.V_$SYSMETRIC)")
                 .then(dados => {
                     if(dados.rows.length > 0){
-                        //console.log(dados)
-                        //console.log(dados.rows[0][0])
-                        var insert = "insert into cpu (ID_C,USAGE,TOTAL,TIMESTAMP) VALUES(2,:0,00,CURRENT_TIMESTAMP)"
+                        console.log(dados)
+                        console.log(dados.rows[0][0])
+                        var insert = "insert into cpu (USAGE,TIMESTAMP) VALUES(:0,CURRENT_TIMESTAMP)"
                         groupConnection.execute(insert,dados.rows[0],{autoCommit : true})
                                         .catch(erro => console.log('ERRO NO INSERT DNA TABLE CPU: ' + erro ))
                     }
@@ -255,11 +255,11 @@ function updateCPU(){
 function updateMemory(){
     dbaConnection.execute(" SELECT round(SUM(bytes/1024/1024)) FROM \"SYS\".\"V_$SGASTAT\" Where Name Like '%free memory%' union SELECT sum(value)/1024/1024  FROM v$sga")
                 .then(dados => {
-                    //console.log(dados.rows)
-                    var insert = "insert into memory (ID_M,TOTAL,USAGE,TIMESTAMP) VALUES(1,:1,:0,CURRENT_TIMESTAMP)"
+                    console.log(dados.rows)
+                    var insert = "insert into memory (TOTAL,FREE,TIMESTAMP) VALUES(:1,:0,CURRENT_TIMESTAMP)"
                     var result = []
-                    result[0] = dados.rows[0][0]
-                    result[1] = dados.rows[1][0]
+                    result[1] = dados.rows[0][0]
+                    result[0] = dados.rows[1][0]
                     //console.log(result) 
                     groupConnection.execute(insert,result,{autoCommit : true})
                                     .catch(erro => console.log('ERRO NO INSERT DA TABLE MEMORY: ' + erro ))
