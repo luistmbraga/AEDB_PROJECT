@@ -77,7 +77,6 @@ function updateTableSpaces(){
             .then(dados => {
                     var size = dados.rows.length - 1
                     dados.rows.forEach(function(dado, i) {
-                        console.log("UPDATING IN TABLESPACES")
                         var update = "UPDATE tablespaces SET TOTAL_SIZE = :0 , FREE_SIZE = :1, timestamp = CURRENT_TIMESTAMP WHERE NAME_TS = :2"
                         groupConnection.execute(update, [dado[1], dado[2], dado[0]], {autoCommit : true})
                                 .then(async d=> {
@@ -97,8 +96,8 @@ function updateTableSpaces(){
 
 function updateDataFiles(){
 dbaConnection.execute("SELECT df.FILE_ID, " + 
-                    "df.tablespace_name, " +
-                    "df.file_name, " +
+                    "Substr(df.tablespace_name,1,40) NAME_TB, " +
+                    "Substr(df.file_name,1,20) NAME_DF, " +
                     "Round(df.bytes/1024/1024,0) FILE_SIZE, " +
                     "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE " + 
                     " FROM DBA_DATA_FILES DF, " +
@@ -137,7 +136,7 @@ function updateUsers(c){
             dados.rows.forEach(function(dado, i) {
                 var update = "UPDATE USERS SET LAST_LOGIN = :0, ATIVO = :1, timestamp = CURRENT_TIMESTAMP, NAME_TS = :2 WHERE USERNAME = :3"
                 groupConnection.execute(update, [dado[1], dado[2], dado[3], dado[0]], {autoCommit:true})
-                            .then(d => { //console.log("Rows affected: " + d.rowsAffected)
+                            .then(d => { 
                                 if(d.rowsAffected == 0){
                                     var insert = "INSERT INTO USERS (USERNAME, LAST_LOGIN, ATIVO, TIMESTAMP, NAME_TS) VALUES (:0, :1, :2, CURRENT_TIMESTAMP, :3)"
                                     groupConnection.execute(insert, dado, {autoCommit : true})
@@ -253,8 +252,6 @@ function updateCPU(){
     dbaConnection12c.execute("select value from SYS.V_$SYSMETRIC where METRIC_NAME IN ('Database CPU Time Ratio') and INTSIZE_CSEC =(select max(INTSIZE_CSEC) from SYS.V_$SYSMETRIC)")
                 .then(dados => {
                     if(dados.rows.length > 0){
-                        console.log(dados)
-                        console.log(dados.rows[0][0])
                         var insert = "insert into cpu (USAGE,TIMESTAMP) VALUES(:0,CURRENT_TIMESTAMP)"
                         groupConnection.execute(insert,dados.rows[0],{autoCommit : true})
                                         .catch(erro => console.log('ERRO NO INSERT DNA TABLE CPU: ' + erro ))
@@ -266,12 +263,10 @@ function updateCPU(){
 function updateMemory(){
     dbaConnection.execute(" SELECT round(SUM(bytes/1024/1024)) FROM \"SYS\".\"V_$SGASTAT\" Where Name Like '%free memory%' union SELECT sum(value)/1024/1024  FROM v$sga")
                 .then(dados => {
-                    console.log(dados.rows)
                     var insert = "insert into memory (TOTAL,FREE,TIMESTAMP) VALUES(:1,:0,CURRENT_TIMESTAMP)"
                     var result = []
                     result[1] = dados.rows[0][0]
                     result[0] = dados.rows[1][0]
-                    //console.log(result) 
                     groupConnection.execute(insert,result,{autoCommit : true})
                                     .catch(erro => console.log('ERRO NO INSERT DA TABLE MEMORY: ' + erro ))
         })
@@ -279,29 +274,22 @@ function updateMemory(){
 }
 
 function updateSessions(){
-    dbaConnection.execute("select SID, PROGRAM, USERNAME " +
-                " from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c " + 
-                "WHERE USERNAME IS NOT NULL" +
-                " order by 1" )
+    dbaConnection.execute("select distinct SID, PROGRAM, USERNAME " +
+                            "from v$session " +
+                            "WHERE USERNAME IS NOT NULL and PROGRAM != 'APEX Listener'")
         .then(dados => {
-                //await groupConnection.execute('TRUNCATE TABLE SESSIONS')
-                  //             .then(d => {
-                                    dados.rows.forEach((dado) =>{
-                                        var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username, atualizado) VALUES (:0, :1, CURRENT_TIMESTAMP, :2, 1)"
-                                        groupConnection.execute(insert, dado, {autoCommit:true})
-                                                       .catch(erro => console.log("ERRO NO INSERT SESSIONS: " + erro))
-                                    })
-                    //           })
-                               //.catch(erro => console.log("ERRO SESSIONS : " + erro))
-
+                dados.rows.forEach((dado) =>{
+                    var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username, atualizado) VALUES (:0, :1, CURRENT_TIMESTAMP, :2, 1)"
+                    groupConnection.execute(insert, dado, {autoCommit:true})
+                                   .catch(erro => console.log("ERRO NO INSERT SESSIONS: " + erro))
+                   })
         })
         .catch(erro => console.log("ERRO NO SELECT SESSIONS: " +erro))
 }
 
 
-async function updateBD(){
+function updateBD(){
                 console.log("A fazer update à BD...")
-                    
 
                         updateTableBD()
                     
@@ -310,21 +298,21 @@ async function updateBD(){
 
                         updateTableSpaces()
                             .then(d => {
-                                console.log("UPDATE TABLESPACES REALIZADO")
                                 updateDataFiles()
                                 
                                 updateUsers()
-                                            .then(async de =>{
+                                            .then(de =>{
                                                 
                                                 updateSessions()
                                                 
-                                                await updateRoles()
-                                                    .then(async d => { 
+                                                updateRoles()
+                                                    .then(d => { 
                                                         updateUsersRoles()
                                                     })
-                                                await updatePrivileges()
-                                                    .then(async d => { 
-                                                        await updateUsersPrivileges()
+                                                updatePrivileges()
+                                                    .then(d => { 
+                                                        updateUsersPrivileges()
+                                                        console.log("Update realizado!")
                                                     })
                                                 
                                             })
