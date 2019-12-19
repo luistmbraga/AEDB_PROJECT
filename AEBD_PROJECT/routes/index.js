@@ -93,7 +93,6 @@ router.get('/cpu', function(req, res){
 })
 
 router.get('/memory', function(req, res){
-  console.log("BATATTS")
   axios.get("http://localhost:8080/ords/grupo06/memory/")
       .then(dados => {
         //console.log(dados.data.items)
@@ -101,7 +100,7 @@ router.get('/memory', function(req, res){
         var total  = []
         var data = []
         for(i in dados.data.items){
-          used.push(dados.data.items[i].total-dados.data.items[i].free)
+          used.push(dados.data.items[i].total - dados.data.items[i].free)
           total.push(dados.data.items[i].total)
           data.push(dados.data.items[i].timestamp)
         }
@@ -111,20 +110,16 @@ router.get('/memory', function(req, res){
 })
 
 router.get('/sessions', function(req, res){
-  oracledb.getConnection(con)
-          .then(c => {
-          c.execute("select SID, USERNAME, PROGRAM " +
-                    " from v$session, (SELECT CURRENT_TIMESTAMP FROM dual) c " + 
-                    "WHERE USERNAME IS NOT NULL" +
-                    " order by 1")
-              .then(dados => {
-                res.render('session', {sessions : dados})
-                c.close()
-              })
-              .catch(erro => {res.status(500).render('error', {error : erro}); c.close()})
-              
-          })
-          .catch(erro => res.status(500).render('error', {error : erro}))
+  axios.get("http://localhost:8080/ords/grupo06/sessions/?q=%7B%22%24orderby%22:%7B%22timestamp%22:%22DESC%22%7D%7D&limit=1500")
+  .then(dados0 => {
+    //console.log(dados.data.items)
+    axios.get('http://localhost:8080/ords/grupo06/sessions/?q={"atualizado":{"$eq":1}}')
+      .then(dados1 => {
+        res.render('session', {sessoes: dados0.data.items,ativas:dados1.data.items});
+      })
+      .catch(erro => {res.status(500).render('error', {error: erro})})
+  })
+  .catch(erro => {res.status(500).render('error', {error: erro})})
 })
 
 module.exports = router;

@@ -322,5 +322,5 @@ function updateBD(){
                             .catch(erro => console.log(erro))
 }
 
-setTimeout(updateBD, 500)
+//setTimeout(updateBD, 500)
 setInterval(updateBD, 5000)

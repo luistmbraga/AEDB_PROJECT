@@ -12,8 +12,78 @@ block content
                     th SessionID
                     th Username
                     th Program
-                each s in sessions.rows
+                    th TimeStamp
+                each s in ativas
                     tr
-                        td= s[0]
-                        td= s[1]
-                        td= s[2]
+                        td= s.id_ses
+                        td= s.users_username
+                        td= s.program
+                        td= s.timestamp
+
+
+        .w3-container(style = ' width:90%')
+            canvas#myChart
+        script.
+            var sessoes = !{JSON.stringify(sessoes)}
+            var i =0;
+            var quant = []
+            var datas = []
+            var INTERVALO = 15
+            var TEMPO = 2
+            for(i = 0; i<60*TEMPO; i++){
+             
+                quant[i] = 0;
+            }
+            var t = new Date();
+            for(i = 0; i<60*TEMPO;i++){
+                var datetime = new Date( Date.now() - 1000 *15*i );
+               datas[i] =  datetime.toLocaleTimeString();
+            }
+            i = 0;
+
+            while(i<60*TEMPO){
+               var h = new Date( Date.now() - 1000 * INTERVALO*i);
+                var l = new Date( Date.now() - 1000 * INTERVALO*(i+1))
+                var aux = []
+                for(j in sessoes){
+                    var k = new Date(sessoes[j].timestamp)
+                    if(h > k && k > l && !aux.includes(sessoes[j].id_ses)){
+                        quant[i]++;
+                        aux.push(sessoes[j].id_ses)
+                        //datas.push(sessoes[j].timestamp)
+                    }
+                }
+                aux = []
+                i++
+            }
+            datas.reverse()
+            quant.reverse()
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: datas,
+                datasets: [{ 
+                    data: quant,
+                    label: "Sessions",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                    ticks: {
+                    }
+                    }]
+                },
+                title: {
+                display: true,
+                text: 'SESSOES'
+                }
+            }
+            });
+        hr
+        footer.w3-container.w3-teal
+                adress Gerado por Grupo 6
