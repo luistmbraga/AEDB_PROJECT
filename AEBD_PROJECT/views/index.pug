@@ -1,15 +1,39 @@
 extends layout
 block content
  nav(id="navMenu")
- div(style="margin-left:15%;padding:1px 16px;height:1000px;")  
-    .w3-card-4  
-        .w3-container
-            header.w3-container.w3-teal
-                h1.w3-center Home Page - Enterprise Manager
+ div(style="margin-left:15%;padding:1px 16px;height:1000px;")
+    .bgimg
+        .middle
+            h1(style="font-size: 400%;") 
+                b Bem-Vindo !
+            hr
+            img(src='em.png' style='width:300px; height:120px; margin-top:20px')
 
-            .w3-container
-                center
-                    h1.w3-center Bem-Vindo
-                    img(src='img.png')
-            footer.w3-container.w3-teal
-                adress Generate by Group 6
+
+
+    style.
+        .bgimg {
+
+        }
+        .topleft {
+        position: absolute;
+        top: 0;
+        left: 16px;
+        }
+        .bottomleft {
+        position: absolute;
+        bottom: 0;
+        left: 16px;
+        }
+        .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-20%, -65%);
+        text-align: center;
+        }
+        hr {
+        margin: auto;
+        width: 40%;
+        }
+    
