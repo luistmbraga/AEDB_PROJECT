@@ -110,7 +110,7 @@ router.get('/memory', function(req, res){
 })
 
 router.get('/sessions', function(req, res){
-  axios.get("http://localhost:8080/ords/grupo06/sessions/?q=%7B%22%24orderby%22:%7B%22timestamp%22:%22DESC%22%7D%7D&limit=1500")
+  axios.get('http://localhost:8080/ords/grupo06/sessions/?q={"$orderby":{"timestamp":"DESC"}}&limit=1500')
   .then(dados0 => {
     //console.log(dados.data.items)
     axios.get('http://localhost:8080/ords/grupo06/sessions/?q={"atualizado":{"$eq":1}}')

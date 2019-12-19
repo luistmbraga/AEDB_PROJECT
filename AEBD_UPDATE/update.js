@@ -18,6 +18,15 @@ const groupCon= {
     connectString : "//localhost/orcl"
   };
 
+var args = process.argv.slice(2)
+var time = 5
+
+if(args.length > 0){
+    var aux = args[0]
+    if(/^\d+$/.test(aux)) time = parseInt(aux)
+}
+
+
 var dbaConnection12c;
 
 var dbaConnection;
@@ -25,16 +34,25 @@ var dbaConnection;
 var groupConnection;
 
 oracledb.getConnection(dbaCon12c)
-.then(c => dbaConnection12c = c)
-.catch(error => console.log("ERROR IN DBA CONNECTION (12c): " + error))
+        .then(c => {
+            dbaConnection12c = c
+            oracledb.getConnection(dbaCon)
+                    .then(c => {
+                        dbaConnection = c
+                        oracledb.getConnection(groupCon)
+                                .then(c =>{
+                                     groupConnection = c
+                                     updateBD()
+                                })
+                                .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
+                    })
+                    .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
+        })
+        .catch(error => console.log("ERROR IN DBA CONNECTION (12c): " + error))
 
-oracledb.getConnection(dbaCon)
-    .then(c => dbaConnection = c)
-    .catch(error => console.log("ERROR IN DBA CONNECTION: " + error))
 
-oracledb.getConnection(groupCon)
-    .then(c => groupConnection = c)
-    .catch(error => console.log("ERROR IN GROUP CONNECTION: " + error))
+
+
 
 function updateTableBD(){
     dbaConnection.execute("SELECT NAME, PLATFORM_NAME, DBID FROM V$DATABASE")
@@ -322,5 +340,4 @@ function updateBD(){
                             .catch(erro => console.log(erro))
 }
 
-//setTimeout(updateBD, 500)
-setInterval(updateBD, 5000)
+setInterval(updateBD, time * 1000)
