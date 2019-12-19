@@ -1,29 +1,15 @@
 extends layout
 block content
-    .w3-container
-        .w3-card-4
+ nav(id="navMenu")
+ div(style="margin-left:15%;padding:1px 16px;height:1000px;")  
+    .w3-card-4  
+        .w3-container
             header.w3-container.w3-teal
                 h1.w3-center Home Page - Enterprise Manager
-                center
-                    img(src='https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Database_copy_Amazon_RDS_Oracle_DB_Instance-512.png' style='width:120px; height:120px;')
+
             .w3-container
-                .w3-container
-                    form(action="/databases/").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal Database Information
-                .w3-container
-                    form(action="/users/").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal Users
-                .w3-container    
-                    form(action="/sessions").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal Sessions
-                .w3-container
-                    form(action="/tablespaces").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal Tablespaces
-                .w3-container    
-                    form(action="/cpu").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal CPU
-                .w3-container    
-                    form(action="/memory").w3-center
-                        button(type='submit' style="background-color: #FFBF00; color: black; width:100%; padding:15px; font-size:20px; border-radius: 12px;").w3-hover-teal Memory
+                center
+                    h1.w3-center Bem-Vindo
+                    img(src='img.png')
             footer.w3-container.w3-teal
                 adress Generate by Group 6
