@@ -28,7 +28,7 @@ router.get('/databases', function(req, res, next) {
 
 /* GET home page. */
 router.get('/users', function(req, res, next) {
-  axios.get("http://localhost:8080/ords/grupo06/users/")
+  axios.get("http://localhost:8080/ords/grupo06/users/?limit=1500")
       .then(dados => {
         //console.log(dados);
        // console.log(dados.data.items[0]);
@@ -40,14 +40,14 @@ router.get('/users', function(req, res, next) {
 
 router.get('/privs', function(req, res, next) {
   var user = req.query.user
-          axios.get('http://localhost:8080/ords/grupo06/user_privileges/?q={"users_username":{"$eq":"'+user+'"}}')
+          axios.get('http://localhost:8080/ords/grupo06/user_privileges/?q={"users_username":{"$eq":"'+user+'"}}&limit=1500')
           .then(dados => {res.render('privs',{username:user,privs: dados.data.items})})
           .catch(erro => {res.status(500).render('error', {error: erro})})
 });
 
 router.get('/roles', function(req, res){
   var user = req.query.user
-  axios.get('http://localhost:8080/ords/grupo06/userroles/?q={"name_user":{"$eq":"'+user+'"}}')
+  axios.get('http://localhost:8080/ords/grupo06/userroles/?q={"name_user":{"$eq":"'+user+'"}}&limit=1500')
   .then(dados => {res.render('roles',{username:user,roles: dados.data.items})})
   .catch(erro => {res.status(500).render('error', {error: erro})})
 
@@ -75,7 +75,7 @@ router.get('/datafiles', function(req, res, next) {
 
 
 router.get('/cpu', function(req, res){
-  axios.get("http://localhost:8080/ords/grupo06/cpu/")
+  axios.get('http://localhost:8080/ords/grupo06/cpu/?q={"$orderby":{"ID_C":"DESC"}}')
       .then(dados => {
         //console.log(dados.data.items)
         var datas = []
@@ -93,7 +93,7 @@ router.get('/cpu', function(req, res){
 })
 
 router.get('/memory', function(req, res){
-  axios.get("http://localhost:8080/ords/grupo06/memory/")
+  axios.get('http://localhost:8080/ords/grupo06/memory/?q={"$orderby":{"ID_M":"DESC"}}')
       .then(dados => {
         //console.log(dados.data.items)
         var used = []
@@ -110,12 +110,21 @@ router.get('/memory', function(req, res){
 })
 
 router.get('/sessions', function(req, res){
-  axios.get('http://localhost:8080/ords/grupo06/sessions/?q={"$orderby":{"timestamp":"DESC"}}&limit=1500')
+  axios.get('http://localhost:8080/ords/grupo06/session_count/?q={"$orderby":{"ID":"DESC"}}&limit=1500')
   .then(dados0 => {
-    //console.log(dados.data.items)
+    var datas = []
+    var counts = []
+    for(i in dados0.data.items){
+      datas.push(dados0.data.items[i].timestamp)
+      counts.push(dados0.data.items[i].count)
+      
+    }
+    console.log(datas)
     axios.get('http://localhost:8080/ords/grupo06/sessions/?q={"atualizado":{"$eq":1}}')
       .then(dados1 => {
-        res.render('session', {sessoes: dados0.data.items,ativas:dados1.data.items});
+        if(dados1.data.items.lenght == 0)
+        res.redirect("/sessions")
+        res.render('session', {datas: datas,counts: counts,ativas:dados1.data.items});
       })
       .catch(erro => {res.status(500).render('error', {error: erro})})
   })

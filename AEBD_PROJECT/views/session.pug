@@ -27,8 +27,16 @@ block content
         .w3-container(style = ' width:90%')
             canvas#myChart
         script.
-            var sessoes = !{JSON.stringify(sessoes)}
-            var i =0;
+            var datas = !{JSON.stringify(datas)}
+            var counts = !{JSON.stringify(counts)}
+            datas = datas.reverse()
+            counts = counts.reverse()
+
+            for(i in datas){
+                 var aux = new Date(datas[i]);
+                 datas[i] = aux.toLocaleTimeString()
+             }
+            /*var i =0;
             var quant = []
             var datas = []
             var INTERVALO = 15
@@ -60,14 +68,14 @@ block content
                 i++
             }
             datas.reverse()
-            quant.reverse()
+            quant.reverse()*/
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: datas,
                 datasets: [{ 
-                    data: quant,
+                    data: counts,
                     label: "Sessions",
                     borderColor: "#3e95cd",
                     fill: false
@@ -78,6 +86,7 @@ block content
                 scales: {
                     yAxes: [{
                     ticks: {
+                        beginAtZero: true
                     }
                     }]
                 },

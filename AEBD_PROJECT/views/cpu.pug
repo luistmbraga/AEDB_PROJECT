@@ -15,7 +15,13 @@ block content
         script.
             var usagesA = !{JSON.stringify(usages)}
             var datasA = !{JSON.stringify(datas)}
+            datasA = datasA.reverse()
+            usagesA = usagesA.reverse()
             console.log(datasA)
+            for(i in datasA){
+                 var aux = new Date(datasA[i]);
+                 datasA[i] = aux.toLocaleTimeString()
+             }
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
             type: 'line',

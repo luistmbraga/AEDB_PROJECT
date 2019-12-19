@@ -114,8 +114,8 @@ function updateTableSpaces(){
 
 function updateDataFiles(){
 dbaConnection.execute("SELECT df.FILE_ID, " + 
-                    "Substr(df.tablespace_name,1,40) NAME_TB, " +
-                    "Substr(df.file_name,1,20) NAME_DF, " +
+                    "df.tablespace_name, " +
+                    "df.file_name, " +
                     "Round(df.bytes/1024/1024,0) FILE_SIZE, " +
                     "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) FREE_SIZE " + 
                     " FROM DBA_DATA_FILES DF, " +
@@ -291,26 +291,56 @@ function updateMemory(){
                 .catch(erro => console.log("ERRO NO SELECT DA TABLE MEMORY: " +  erro ))
 }
 
+function putSessionsDes(){
+    return new Promise(function (resolve, reject) {
+        groupConnection.execute("UPDATE SESSIONS SET ATUALIZADO = 0 WHERE ATUALIZADO = 1")
+                       .then(d => resolve('Success'))
+                       .catch(error => reject(error))
+    })
+}
+
 function updateSessions(){
-    dbaConnection.execute("select distinct SID, PROGRAM, USERNAME " +
+    dbaConnection.execute("select SID, PROGRAM, USERNAME " +
                             "from v$session " +
-                            "WHERE USERNAME IS NOT NULL and PROGRAM != 'APEX Listener'")
+                            "WHERE USERNAME IS NOT NULL")
+        .then(dados => {
+            putSessionsDes().then(h => {
+                dados.rows.forEach((dado) =>{
+                    var update = "UPDATE SESSIONS SET TIMESTAMP = CURRENT_TIMESTAMP, ATUALIZADO = 1 WHERE id_ses = :0"
+                    groupConnection.execute(update, [dado[0]])
+                                .then( d => {
+                                    if(d.rowsAffected==0){
+                                        var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username, atualizado) VALUES (:0, :1, CURRENT_TIMESTAMP, :2, 1)"
+                                        groupConnection.execute(insert, dado, {autoCommit:true})
+                                                      .catch(erro => console.log("ERRO NO INSERT SESSIONS: " + erro))
+                                    }
+                                })
+
+                   })
+                })
+        })
+        .catch(erro => console.log("ERRO NO SELECT SESSIONS: " +erro))
+}
+
+function updateSessionsCount(){
+    dbaConnection.execute("select count(*) " +
+                            "from v$session " +
+                            "WHERE USERNAME IS NOT NULL")
         .then(dados => {
                 dados.rows.forEach((dado) =>{
-                    var insert = "INSERT INTO SESSIONS (id_ses, program, timestamp, users_username, atualizado) VALUES (:0, :1, CURRENT_TIMESTAMP, :2, 1)"
+                    var insert = "INSERT INTO SESSION_COUNT (count,timestamp) VALUES (:0,CURRENT_TIMESTAMP)"
                     groupConnection.execute(insert, dado, {autoCommit:true})
-                                   .catch(erro => console.log("ERRO NO INSERT SESSIONS: " + erro))
+                                   .catch(erro => console.log("ERRO NO INSERT SESIION_COUNT: " + erro))
                    })
         })
         .catch(erro => console.log("ERRO NO SELECT SESSIONS: " +erro))
 }
 
-
 function updateBD(){
                 console.log("A fazer update à BD...")
-
+                        
                         updateTableBD()
-                    
+                        updateSessionsCount()
                         updateCPU()
                         updateMemory()
 
@@ -320,8 +350,8 @@ function updateBD(){
                                 
                                 updateUsers()
                                             .then(de =>{
-                                                
                                                 updateSessions()
+                                                
                                                 
                                                 updateRoles()
                                                     .then(d => { 

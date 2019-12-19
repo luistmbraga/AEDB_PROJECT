@@ -14,19 +14,14 @@ BEGIN
   :new.ID_M := Memory_Sq.nextval;
 END;
 
-create sequence Sessions_Sq start with 1;
-CREATE OR REPLACE TRIGGER SESSIONS_Tr
-    BEFORE INSERT ON SESSIONS
+create sequence SESSION_C_Sq start with 1;
+CREATE OR REPLACE TRIGGER SESSION_C_Tr
+    BEFORE INSERT ON SESSION_COUNT
     FOR EACH ROW    
 BEGIN
-  :new.ID := Sessions_Sq.nextval;
+  :new.ID := SESSION_C_Sq.nextval;
 END;
 
-CREATE OR REPLACE TRIGGER SESSION_Tr2
-    BEFORE INSERT ON SESSIONS
-    FOR EACH ROW
-BEGIN
-  Update SESSIONS SET ATUALIZADO = 0 
-  WHERE ATUALIZADO = 1 and 
-    abs(:new.timestamp - timestamp)*24*3600 > 1;
-END;
+
+alter user grupo06 
+QUOTA UNLIMITED ON AEBD_TP;

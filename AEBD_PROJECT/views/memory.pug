@@ -16,6 +16,12 @@ block content
             var usedA = !{JSON.stringify(used)}
             var totalA = !{JSON.stringify(total)}
             var datasA = !{JSON.stringify(datas)}
+             datasA = datasA.reverse()
+             usedA = usedA.reverse()
+             for(i in datasA){
+                 var aux = new Date(datasA[i]);
+                 datasA[i] = aux.toLocaleTimeString()
+             }
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
             
